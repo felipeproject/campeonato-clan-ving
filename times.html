@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Times Participantes - VING PUBG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: white;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+
+<body class="text-white">
+
+  <!-- Navbar carregada externamente -->
+  <div id="navbar-container"></div>
+
+  <!-- Secção dos Times -->
+  <section class="max-w-6xl mx-auto py-10 px-4 min-h-[60vh]">
+    <h2 class="text-2xl font-bold mb-6">Times Participantes</h2>
+    <div id="times-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+      Carregando times...
+    </div>
+  </section>
+
+  <!-- Rodapé -->
+  <footer class="bg-[#121212] text-center text-sm py-6 text-gray-500 mt-12">
+    Clã VING eSports © 2025. Organização independente.
+  </footer>
+
+  <!-- Script para carregar navbar e times -->
+  <script>
+    // Carregar a navbar externa
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+      })
+      .catch(() => {
+        console.error('Erro ao carregar a navbar.');
+      });
+
+    // Carregar times a partir de teams.json
+    fetch('teams.json')
+      .then(res => res.json())
+      .then(times => {
+        const container = document.getElementById('times-container');
+        container.innerHTML = '';
+
+        times.forEach(time => {
+          const card = document.createElement('div');
+          card.className = "bg-black rounded-xl p-4 shadow w-full max-w-xs mx-auto";
+
+          // Montar o conteúdo do card
+          card.innerHTML = `
+            <img src="${time.logo}" alt="${time.nome}" class="w-50 h-50 object-contain mx-auto mb-4" />
+            <h3 class="text-lg font-bold text-center text-green-400 mb-1">${time.nome}</h3>
+            <ul class="mt-2 text-sm text-gray-300 list-disc list-inside">
+              ${time.jogadores.map(j => {
+                const isCaptain = j.includes('(C)');
+                const style = isCaptain ? 'text-yellow-400 font-semibold' : '';
+                return `<li class="${style}">${j}</li>`;
+              }).join('')}
+            </ul>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(() => {
+        document.getElementById('times-container').textContent = 'Falha ao carregar os times.';
+      });
+  </script>
+</body>
+
+</html>

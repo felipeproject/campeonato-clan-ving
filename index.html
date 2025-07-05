@@ -1,63 +1,81 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Campeonato Clan Ving 2025 - Página em Construção</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campeonato VING - PUBG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #212121;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-      flex-direction: column;
+      background-color: #0f0f0f;
+      color: white;
+      font-family: sans-serif;
     }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      color: #f39c12;
-    }
-
-    p {
-      font-size: 1.5em;
-      margin-bottom: 30px;
-    }
-
-    .loading {
-      font-size: 2em;
-      font-weight: bold;
-      color: #3498db;
-      animation: blink 1.5s infinite;
-    }
-
-    @keyframes blink {
-      0% { opacity: 0; }
-      50% { opacity: 1; }
-      100% { opacity: 0; }
+    .hero-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      margin: 0 auto;
     }
   </style>
 </head>
-<body>
+<body class="text-white">
 
-  <h1>Campeonato Clan Ving 2025</h1>
-  <p>Estamos trabalhando na página...</p>
-  <p>Em breve, a página oficial do campeonato será liberada com todos os detalhes dos times, tabelas e muito mais.</p>
-  <p class="loading">Por favor, aguarde... <span id="dots">...</span></p>
+  <!-- NAVBAR (será carregada externamente) -->
+  <div id="navbar-container"></div>
 
+  <!-- HERO SECTION -->
+  <section class="text-center py-16 px-4 bg-[#121212] min-h-[60vh]">
+    <h1 class="text-4xl font-bold mb-2">CAMPEONATO PUBG - VING</h1>
+    <p class="text-lg text-gray-400 mb-4">Todo sábado de Julho • 21h • TTP • Premiação em dinheiro</p>
+
+    <!-- Imagem de Ação -->
+    <div class="my-6">
+      <img src="imagens/camp.jpg" alt="Ação do campeonato PUBG" class="hero-image">
+    </div>
+
+    <!-- Contador -->
+    <div class="text-2xl font-bold text-green-500" id="contador">Carregando...</div>
+    <div class="mt-6">
+      <a href="times.html" class="px-4 py-2 bg-green-600 rounded hover:bg-green-700">Ver Times</a>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="bg-[#121212] text-center text-sm py-6 text-gray-500 mt-12">
+    Clã VING eSports © 2025. Organização independente.
+  </footer>
+
+  <!-- SCRIPTS -->
   <script>
-    let dotCount = 0;
-    setInterval(() => {
-      const dots = document.getElementById('dots');
-      dotCount = (dotCount + 1) % 4;
-      dots.innerText = '.'.repeat(dotCount);
-    }, 500);
-  </script>
+    // Dados do evento
+    var dataEvento = new Date(2025, 6, 5, 21, 0, 0, 0); // 5 de julho de 2025 às 21h
+    var nomeEvento = "Campeonato VING - PUBG";
 
+    // Carregar navbar externa
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+      });
+
+    // Contador
+    function atualizarContador() {
+      const agora = new Date();
+      const diff = dataEvento - agora;
+      if (diff <= 0) {
+        document.getElementById('contador').textContent = "É hoje! 21h!";
+        return;
+      }
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+      document.getElementById('contador').textContent = `${h}h ${m}m ${s}s`;
+    }
+
+    setInterval(atualizarContador, 1000);
+    atualizarContador();
+  </script>
 </body>
 </html>

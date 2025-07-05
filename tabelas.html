@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Classificações dos Jogos - VING PUBG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- NAVBAR (carregada externamente) -->
+  <div id="navbar-container"></div>
+
+  <!-- Conteúdo principal -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 py-10">
+
+    <!-- Bloco informativo -->
+    <section class="mb-8 bg-gray-900 p-4 rounded-lg shadow-inner">
+      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-info-circle mr-2"></i> Sobre os Jogos</h3>
+      <p class="mb-2">📌 Modo de Jogo: TPP</p>
+      <p class="mb-2">🗺 Mapas da 1ª Rodada:</p>
+      <ul class="list-disc list-inside mb-2">
+        <li>⿡ MIRAMAR</li>
+        <li>⿢ TAEGO</li>
+        <li>⿣ SANHOK</li>
+      </ul>
+      <p class="text-green-400">🔄 Os mapas serão jogados na ordem acima, prepare sua estratégia!</p>
+    </section>
+
+    <!-- Tabelas dos mapas -->
+    <div id="mapas" class="space-y-10"></div>
+
+    <!-- Ranking Geral -->
+    <section class="mt-16">
+      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-trophy mr-2"></i> Ranking Geral</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full bg-black rounded-lg border border-gray-700 text-sm text-center table-fixed">
+          <thead class="bg-gray-800 text-gray-300">
+            <tr>
+              <th class="border border-gray-700 px-2 py-2">Time</th>
+              <th class="border border-gray-700 px-2 py-2">Pontos Totais</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-geral" class="text-white"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>  
+
+  <!-- Rodapé -->
+  <footer id="footer" class="bg-[#121212] text-center py-6 text-gray-500 mt-auto">
+
+    <!-- Sistema de Pontuação -->
+    <section class="mb-10 bg-gray-800 p-4 rounded-lg shadow-inner">
+      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-calculator mr-2"></i> Sistema de Pontuação</h3>
+      <p class="mb-2">🔢 A pontuação segue o padrão oficial do <strong>PUBG Global Championship (PGC)</strong>:</p>
+      <ul class="list-disc list-inside mb-2">
+        <li>🥇 1º lugar: <strong>10 pontos</strong></li>
+        <li>🥈 2º lugar: <strong>6 pontos</strong></li>
+        <li>🥉 3º lugar: <strong>5 pontos</strong></li>
+        <li>4º lugar: <strong>4 pontos</strong></li>
+        <li>5º lugar: <strong>3 pontos</strong></li>
+        <li>6º lugar: <strong>2 pontos</strong></li>
+        <li>7º lugar ou pior: <strong>0 pontos</strong></li>
+        <li>💥 Cada kill: <strong>+1 ponto</strong></li>
+      </ul>
+      <p class="text-sm text-gray-300">📌 Exemplo: um time que ficou em 2º lugar com 5 kills recebe <strong>6 + 5 = 11 pontos</strong>.</p>
+    </section>
+
+    Clã VING eSports © 2025. Organização independente.
+  </footer>
+
+  <!-- Script para carregar dados dos jogos -->
+  <script>
+    const mapas = ["MIRAMAR", "TAEGO", "SANHOK"];
+    const pontosPorColocacao = { 1: 10, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2 };
+
+    async function carregarDados() {
+      const totais = {};
+      const container = document.getElementById("mapas");
+
+      for (const mapa of mapas) {
+        const dados = await fetch(`jogos/${mapa.toLowerCase()}.json`).then(res => res.json());
+
+        const tabela = document.createElement("section");
+        tabela.innerHTML = `
+          <h2 class="text-xl font-semibold mb-4 text-white"><i class="fas fa-map mr-2"></i>${mapa}</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm text-center border border-gray-700">
+              <thead class="bg-gray-800 text-gray-300">
+                <tr>
+                  <th class="border border-gray-700 px-2 py-2">Time</th>
+                  <th class="border border-gray-700 px-2 py-2">Classificação</th>
+                  <th class="border border-gray-700 px-2 py-2">Kills</th>
+                  <th class="border border-gray-700 px-2 py-2">Pontos</th>
+                </tr>
+              </thead>
+              <tbody class="text-white">
+                ${dados.map((entry, i) => {
+                  const pontos = (entry.colocacao >= 1 && entry.colocacao <= 6 ? pontosPorColocacao[entry.colocacao] : 0) + entry.kills;
+                  if (!totais[entry.time]) totais[entry.time] = 0;
+                  totais[entry.time] += pontos;
+                  return `
+                    <tr class="${i % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}">
+                      <td class="px-2 py-2 text-left">${entry.time}</td>
+                      <td class="px-2 py-2">${entry.colocacao}º</td>
+                      <td class="px-2 py-2">${entry.kills}</td>
+                      <td class="px-2 py-2">${pontos}</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
+        `;
+        container.appendChild(tabela);
+      }
+
+      const ranking = Object.entries(totais)
+        .sort((a, b) => b[1] - a[1])
+        .map(([time, pontos]) => `
+          <tr class="border border-gray-700 ${pontos > 0 ? 'bg-gray-900' : 'bg-gray-800'}">
+            <td class="px-2 py-2 text-left">${time}</td>
+            <td class="px-2 py-2">${pontos}</td>
+          </tr>
+        `).join("");
+
+      document.getElementById("ranking-geral").innerHTML = ranking;
+    }
+
+    carregarDados();
+  </script>
+
+  <!-- Script para carregar a navbar externa -->
+  <script>
+    fetch('navbar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-container').innerHTML = data;
+      })
+      .catch(error => {
+        console.error('Erro ao carregar a navbar:', error);
+      });
+  </script>
+
+</body>
+</html>

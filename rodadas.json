@@ -1,0 +1,38 @@
+[
+  {
+    "numero": 1,
+    "data": "05/07",
+    "partidas": [
+      { "nome": "Partida 1", "horario": "21:00" },
+      { "nome": "Partida 2", "horario": "21:40" },
+      { "nome": "Partida 3", "horario": "22:20" }
+    ]
+  },
+  {
+    "numero": 2,
+    "data": "12/07",
+    "partidas": [
+      { "nome": "Partida 1", "horario": "21:00" },
+      { "nome": "Partida 2", "horario": "21:40" },
+      { "nome": "Partida 3", "horario": "22:20" }
+    ]
+  },
+  {
+    "numero": 3,
+    "data": "19/07",
+    "partidas": [
+      { "nome": "Partida 1", "horario": "21:00" },
+      { "nome": "Partida 2", "horario": "21:40" },
+      { "nome": "Partida 3", "horario": "22:20" }
+    ]
+  },
+  {
+    "numero": 4,
+    "data": "26/07",
+    "partidas": [
+      { "nome": "Partida 1", "horario": "21:00" },
+      { "nome": "Partida 2", "horario": "21:40" },
+      { "nome": "Partida 3", "horario": "22:20" }
+    ]
+  }
+]

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campeonato - VING PUBG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
+    integrity="sha512-yYcg+WlRUUHX4NnM7pLAPF+ZVrY0t7qK3FQqOVqZt5Kj6K9MXg0qzg1gZd1zXXKkOMHDzUkfFZ3zq1WTtn5xlA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Efeito de contágio: pulsação */
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 10px 2px #22c55e; }
+      50% { box-shadow: 0 0 20px 4px #22c55e; }
+    }
+
+    .contagio {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+
+  <!-- Conteúdo principal -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 py-10">
+
+    <!-- INFORMAÇÕES -->
+    <section id="info" class="mb-16">
+      <h2 class="text-2xl font-bold mb-4 flex items-center">
+        <i class="fas fa-clipboard-list mr-2"></i> 📋 Informações do Campeonato
+      </h2>
+      <div id="dados" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        Carregando...
+      </div>
+    </section>
+
+    <!-- CLASSIFICAÇÃO -->
+    <section id="classificacao" class="mb-16">
+      <h2 class="text-2xl font-bold mb-6 flex items-center justify-center">
+        <i class="fas fa-trophy mr-2"></i> 🏆 Classificação - Pontos Corridos
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="table-auto w-full text-sm text-center bg-black rounded-lg overflow-hidden">
+          <thead class="bg-gray-800 text-gray-300">
+            <tr>
+              <th class="py-2 px-2">#</th>
+              <th class="py-2 px-2 text-left">Time</th>
+              <th class="py-2 px-2">PJ</th>
+              <th class="py-2 px-2">Kills</th>
+              <th class="py-2 px-2">PTS</th>
+            </tr>
+          </thead>
+          <tbody id="tabela" class="text-white"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- RODADAS -->
+    <section id="rodadas" class="mb-16">
+      <h2 class="text-4xl font-bold mb-10 text-center text-green-400 uppercase tracking-wide">
+        <i class="fas fa-calendar-alt mr-2"></i> 📅 Rodadas - Julho 2025
+      </h2>
+      <div id="rodadas-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- As rodadas serão carregadas aqui dinamicamente -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Rodapé -->
+  <footer class="bg-[#121212] text-center text-sm py-6 text-gray-500 mt-auto">
+    Clã VING eSports © 2025. Organização independente.
+  </footer>
+
+  <!-- Scripts para carregar dados -->
+  <script>
+    // Carregar a navbar externa
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.body.insertAdjacentHTML('afterbegin', html);
+      })
+      .catch(() => {
+        console.error('Erro ao carregar a navbar.');
+      });
+
+    // Carregar informações do campeonato
+    fetch('dados.json')
+      .then(res => res.json())
+      .then(dados => {
+        const premiaçãoValor = parseFloat(dados.premiacao_total.replace('.', '').replace(',', '.'));
+        const premiaoDiv = document.createElement('div');
+        premiaoDiv.className = 'bg-black p-4 rounded';
+        premiaoDiv.innerHTML = `
+          <div class='font-semibold mb-2'>💰 Premiação:</div>
+          <div id="premiacaoValor" class="text-3xl font-bold text-green-400 contagio">R$ 0,00</div>
+        `;
+        document.getElementById('dados').appendChild(premiaoDiv);
+        // Animar o valor de premiação
+        animateValor('premiacaoValor', premiaçãoValor);
+      });
+
+    // Função de animação do valor
+    function animateValor(id, valorFinal) {
+      const el = document.getElementById(id);
+      let valorAtual = 0;
+      const duracao = 2000; // 2 segundos
+      const passos = 60;
+      const incremento = valorFinal / passos;
+      let passoAtual = 0;
+
+      const interval = setInterval(() => {
+        passoAtual++;
+        valorAtual += incremento;
+        if (passoAtual >= passos) {
+          clearInterval(interval);
+          valorAtual = valorFinal;
+        }
+        el.textContent = `R$ ${valorAtual.toFixed(2).replace('.', ',')}`;
+      }, duracao / passos);
+    }
+
+    // Carregar classificação
+    fetch('classificacao.json')
+      .then(res => res.json())
+      .then(times => {
+        const tbody = document.getElementById('tabela');
+        // Ordenar por pontos, depois kills
+        times.sort((a, b) => b.pontos - a.pontos || b.kills - a.kills);
+        tbody.innerHTML = times.map((time, i) => `
+          <tr class="${i < 3 ? 'bg-green-800' : 'bg-gray-900'} border-b border-gray-700">
+            <td class="py-2">${i + 1}</td>
+            <td class="py-2 text-left px-2 font-semibold">${time.nome}</td>
+            <td class="py-2">${time.pj}</td>
+            <td class="py-2">${time.kills}</td>
+            <td class="py-2 font-bold text-green-400">${time.pontos}</td>
+          </tr>
+        `).join('');
+      });
+
+    // Carregar rodadas
+    fetch('rodadas.json')
+      .then(res => res.json())
+      .then(rodadas => {
+        const container = document.getElementById('rodadas-container');
+        container.innerHTML = rodadas.map(rodada => {
+          const partidasHtml = rodada.partidas.map(p => `
+            <p class="mb-2"><strong>${p.nome}</strong> – ${p.horario}</p>
+          `).join('');
+          return `
+            <div class="bg-gradient-to-tr from-gray-900 via-black to-gray-900 p-6 rounded-2xl border border-green-600 shadow-lg hover:scale-105 transition-transform">
+              <h3 class="text-2xl font-bold text-green-400 mb-4">🟢 Rodada ${rodada.numero} – ${rodada.data}</h3>
+              <div class="space-y-2 text-gray-300 text-base">
+                ${partidasHtml}
+              </div>
+            </div>
+          `;
+        }).join('');
+      });
+  </script>
+</body>
+</html>
