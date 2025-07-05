@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campeonato Clan Ving 2025 - Página em Construção</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #212121;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #f39c12;
+    }
+
+    p {
+      font-size: 1.5em;
+      margin-bottom: 30px;
+    }
+
+    .loading {
+      font-size: 2em;
+      font-weight: bold;
+      color: #3498db;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink {
+      0% { opacity: 0; }
+      50% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Campeonato Clan Ving 2025</h1>
+  <p>Estamos trabalhando na página...</p>
+  <p>Em breve, a página oficial do campeonato será liberada com todos os detalhes dos times, tabelas e muito mais.</p>
+  <p class="loading">Por favor, aguarde... <span id="dots">...</span></p>
+
+  <script>
+    let dotCount = 0;
+    setInterval(() => {
+      const dots = document.getElementById('dots');
+      dotCount = (dotCount + 1) % 4;
+      dots.innerText = '.'.repeat(dotCount);
+    }, 500);
+  </script>
+
+</body>
+</html>
