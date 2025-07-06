@@ -1,10 +1,37 @@
 [
-  { "time": "TÓXICOS", "colocacao": 0, "kills": 0 },
-  { "time": "ASAS DO INFERNO", "colocacao": 0, "kills": 0 },
-  { "time": "STRAFE", "colocacao": 0, "kills": 0 },
-  { "time": "FURIA DO FURACÃO", "colocacao": 0, "kills": 0 },
-  { "time": "Sons of Anarchy - Time A", "colocacao": 0, "kills": 0 },
-  { "time": "Sons of Anarchy - Time B", "colocacao": 0, "kills": 0 },
-  { "time": "PINGYELLOW", "colocacao": 0, "kills": 0 },
-  { "time": "INESQUECIVEL", "colocacao": 0, "kills": 0 }
+  {
+    "time": "INESQUECIVEL",
+    "colocacao": 1,
+    "kills": 7
+  },
+  {
+    "time": "TÓXICOS",
+    "colocacao": 2,
+    "kills": 2
+  },
+  {
+    "time": "STRAFE",
+    "colocacao": 3,
+    "kills": 5
+  },
+  {
+    "time": "Sons of Anarchy - Time A",
+    "colocacao": 4,
+    "kills": 4
+  },
+  {
+    "time": "PINGYELLOW",
+    "colocacao": 5,
+    "kills": 0
+  },
+  {
+    "time": "Sons of Anarchy - Time B",
+    "colocacao": 6,
+    "kills": 0
+  },
+  {
+    "time": "FURIA DO FURACÃO",
+    "colocacao": 7,
+    "kills": 0
+  }
 ]

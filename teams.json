@@ -79,11 +79,10 @@
     "nome": "INESQUECIVEL",
     "logo": "imagens/inesquecivel.png",
     "jogadores": [
-      "Perobande (C)",
-      "TheBill",
-      "Perobinha",
+      "TheBill (C)",
       "Gueludo",
-      "Laygo"
+      "Perobinha",
+      "Perobande"
     ]
   }
 ]
