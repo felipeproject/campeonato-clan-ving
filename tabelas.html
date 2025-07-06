@@ -19,13 +19,13 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- NAVBAR (carregada externamente) -->
+  <!-- NAVBAR -->
   <div id="navbar-container"></div>
 
   <!-- Conteúdo principal -->
   <main class="flex-1 max-w-6xl mx-auto px-4 py-10">
 
-    <!-- Bloco informativo -->
+    <!-- Informações sobre os jogos -->
     <section class="mb-8 bg-gray-900 p-4 rounded-lg shadow-inner">
       <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-info-circle mr-2"></i> Sobre os Jogos</h3>
       <p class="mb-2">📌 Modo de Jogo: TPP</p>
@@ -56,7 +56,7 @@
         </table>
       </div>
     </section>
-  </main>  
+  </main>
 
   <!-- Rodapé -->
   <footer class="bg-[#121212] text-center py-6 text-gray-500 mt-auto">
@@ -78,13 +78,14 @@
     Clã VING eSports © 2025. Organização independente.
   </footer>
 
-  <!-- Script para carregar dados dos jogos -->
+  <!-- Script de carregamento dos dados -->
   <script>
     const mapas = ["MIRAMAR", "TAEGO", "SANHOK"];
     const pontosPorColocacao = { 1: 10, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2 };
 
     async function carregarDados() {
       const totais = {};
+      const nomesOriginais = {};
       const container = document.getElementById("mapas");
 
       for (const mapa of mapas) {
@@ -106,12 +107,20 @@
                 </thead>
                 <tbody class="text-white">
                   ${dados.map((entry, i) => {
+                    const nomeNormalizado = entry.time.trim().toUpperCase();
+                    const nomeOriginal = entry.time.trim();
                     const pontos = (entry.colocacao >= 1 && entry.colocacao <= 6 ? pontosPorColocacao[entry.colocacao] : 0) + entry.kills;
-                    if (!totais[entry.time]) totais[entry.time] = 0;
-                    totais[entry.time] += pontos;
+
+                    if (!totais[nomeNormalizado]) {
+                      totais[nomeNormalizado] = 0;
+                      nomesOriginais[nomeNormalizado] = nomeOriginal;
+                    }
+
+                    totais[nomeNormalizado] += pontos;
+
                     return `
                       <tr class="${i % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}">
-                        <td class="px-2 py-2 text-left">${entry.time}</td>
+                        <td class="px-2 py-2 text-left">${nomeOriginal}</td>
                         <td class="px-2 py-2">${entry.colocacao}º</td>
                         <td class="px-2 py-2">${entry.kills}</td>
                         <td class="px-2 py-2">${pontos}</td>
@@ -128,11 +137,12 @@
         }
       }
 
+      // Geração do ranking geral
       const ranking = Object.entries(totais)
         .sort((a, b) => b[1] - a[1])
-        .map(([time, pontos]) => `
+        .map(([nomeNormalizado, pontos]) => `
           <tr class="border border-gray-700 ${pontos > 0 ? 'bg-gray-900' : 'bg-gray-800'}">
-            <td class="px-2 py-2 text-left">${time}</td>
+            <td class="px-2 py-2 text-left">${nomesOriginais[nomeNormalizado]}</td>
             <td class="px-2 py-2">${pontos}</td>
           </tr>
         `).join("");
