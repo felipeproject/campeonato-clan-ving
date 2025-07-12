@@ -1,7 +1,7 @@
 [
   {
     "nome": "TÓXICOS",
-    "logo": "imagens/toxicos.png",
+    "logo": "imagens/times/toxicos.png",
     "jogadores": [
       "xJMaRcox (C)",
       "Dark-Funeral-666",
@@ -12,7 +12,7 @@
   },
   {
     "nome": "ASAS DO INFERNO",
-    "logo": "imagens/asas-do-inferno.png",
+    "logo": "imagens/times/asas-do-inferno.png",
     "jogadores": [
       "kalixone (C)",
       "Thiagoxxv",
@@ -23,7 +23,7 @@
   },
   {
     "nome": "STRAFE",
-    "logo": "imagens/strafe.png",
+    "logo": "imagens/times/strafe.png",
     "jogadores": [
       "andflp (C)",
       "Doomed_Aim",
@@ -34,7 +34,7 @@
   },
   {
     "nome": "FURIA DO FURACÃO",
-    "logo": "imagens/furia-do-furacao.png",
+    "logo": "imagens/times/furia-do-furacao.png",
     "jogadores": [
       "furacaobr (C)",
       "LucasFCA",
@@ -44,7 +44,7 @@
   },
   {
     "nome": "Sons of Anarchy - Time A",
-    "logo": "imagens/soa.png",
+    "logo": "imagens/times/soa.png",
     "jogadores": [
       "caducast (C)",
       "takkaoF",
@@ -55,7 +55,7 @@
   },
   {
     "nome": "Sons of Anarchy - Time B",
-    "logo": "imagens/soa.png",
+    "logo": "imagens/times/soa.png",
     "jogadores": [
       "LAYOGAME (C)",
       "Mateus_GB2",
@@ -66,7 +66,7 @@
   },
   {
     "nome": "PINGYELLOW",
-    "logo": "imagens/pingyellow.png",
+    "logo": "imagens/times/pingyellow.png",
     "jogadores": [
       "TEXAS3006 (C)",
       "STRAT_FPS",
@@ -77,7 +77,7 @@
   },
   {
     "nome": "INESQUECIVEL",
-    "logo": "imagens/inesquecivel.png",
+    "logo": "imagens/times/inesquecivel.png",
     "jogadores": [
       "TheBill (C)",
       "Gueludo",

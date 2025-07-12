@@ -1,38 +1,68 @@
 [
   {
     "numero": 1,
-    "data": "05/07",
+    "data": "05/07/2025",
+    "status": "concluida",
     "partidas": [
-      { "nome": "Partida 1", "horario": "21:00" },
-      { "nome": "Partida 2", "horario": "21:40" },
-      { "nome": "Partida 3", "horario": "22:20" }
+      {
+        "nome": " Miramar",
+        "horario": "21h"
+      },
+      {
+        "nome": " Taego"
+      },
+      {
+        "nome": " Sanhok"
+      }
     ]
   },
   {
     "numero": 2,
-    "data": "12/07",
+    "data": "12/07/2025",
+    "status": "hoje",
     "partidas": [
-      { "nome": "Partida 1", "horario": "21:00" },
-      { "nome": "Partida 2", "horario": "21:40" },
-      { "nome": "Partida 3", "horario": "22:20" }
+      {
+        "nome": " Vikendi",
+        "horario": "21h"
+      },
+      {
+        "nome": " Deston"
+      },
+      {
+        "nome": " Erangel"
+      }
     ]
   },
   {
     "numero": 3,
-    "data": "19/07",
+    "data": "19/07/2025",
+    "status": "por_vir",
     "partidas": [
-      { "nome": "Partida 1", "horario": "21:00" },
-      { "nome": "Partida 2", "horario": "21:40" },
-      { "nome": "Partida 3", "horario": "22:20" }
+      {
+        "nome": "A Definir..."
+      },
+      {
+        "nome": "A Definir..."
+      },
+      {
+        "nome": "A Definir..."
+      }
     ]
   },
   {
     "numero": 4,
-    "data": "26/07",
+    "data": "26/07/2025",
+    "status": "por_vir",
     "partidas": [
-      { "nome": "Partida 1", "horario": "21:00" },
-      { "nome": "Partida 2", "horario": "21:40" },
-      { "nome": "Partida 3", "horario": "22:20" }
+      {
+        "nome": "A Definir..."
+      },
+      {
+        "nome": "A Definir..."
+      },
+      {
+        "nome": "A Definir..."
+      }
     ]
   }
 ]

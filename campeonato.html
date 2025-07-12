@@ -5,11 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Campeonato - VING PUBG</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Font Awesome para ícones -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" 
-    integrity="sha512-yYcg+WlRUUHX4NnM7pLAPF+ZVrY0t7qK3FQqOVqZt5Kj6K9MXg0qzg1gZd1zXXKkOMHDzUkfFZ3zq1WTtn5xlA==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Feather Icons -->
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <style>
+    :root {
+      --logo-size: 100px;
+    }
     body {
       background-color: #0f0f0f;
       color: #ffffff;
@@ -18,48 +19,65 @@
     html {
       scroll-behavior: smooth;
     }
-
-    /* Efeito de contágio: pulsação */
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 10px 2px #22c55e; }
-      50% { box-shadow: 0 0 20px 4px #22c55e; }
-    }
-
     .contagio {
       animation: pulse 2s infinite;
     }
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 0 10px 2px #22c55e;
+      }
+      50% {
+        box-shadow: 0 0 20px 4px #22c55e;
+      }
+    }
+    .modal {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal.show {
+      display: flex;
+    }
+    .modal-content {
+      background-color: #222;
+      padding: 20px;
+      max-height: 80vh;
+      max-width: 80vw;
+      overflow-y: auto;
+      border-radius: 8px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
   </style>
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen w-full max-w-[1920px] mx-auto">
 
+  <div id="navbar-container"></div>
 
-  <!-- Conteúdo principal -->
-  <main class="flex-1 max-w-6xl mx-auto px-4 py-10">
-
-    <!-- INFORMAÇÕES -->
+  <main class="flex-1 px-8 py-10">
     <section id="info" class="mb-16">
-      <h2 class="text-2xl font-bold mb-4 flex items-center">
-        <i class="fas fa-clipboard-list mr-2"></i> 📋 Informações do Campeonato
+      <h2 class="text-4xl font-bold mb-6 flex items-center">
+        <i data-feather="file-text" class="mr-3"></i> Informações do Campeonato
       </h2>
-      <div id="dados" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        Carregando...
-      </div>
+      <div id="dados" class="grid grid-cols-1 md:grid-cols-2 gap-6">Carregando...</div>
     </section>
 
-    <!-- CLASSIFICAÇÃO -->
-    <section id="classificacao" class="mb-16">
-      <h2 class="text-2xl font-bold mb-6 flex items-center justify-center">
-        <i class="fas fa-trophy mr-2"></i> 🏆 Classificação - Pontos Corridos
+    <section id="classificacao" class="mb-20">
+      <h2 class="text-4xl font-bold mb-10 flex items-center justify-center">
+        <i data-feather="star" class="mr-3"></i> Classificação Geral
       </h2>
       <div class="overflow-x-auto">
-        <table class="table-auto w-full text-sm text-center bg-black rounded-lg overflow-hidden">
+        <table class="w-full text-lg text-center bg-black rounded-lg overflow-hidden">
           <thead class="bg-gray-800 text-gray-300">
             <tr>
-              <th class="py-2 px-2">#</th>
-              <th class="py-2 px-2 text-left">Time</th>
-              <th class="py-2 px-2">PJ</th>
-              <th class="py-2 px-2">Kills</th>
-              <th class="py-2 px-2">PTS</th>
+              <th class="py-4 px-4">#</th>
+              <th class="py-4 px-4 text-left">Time</th>
+              <th class="py-4 px-4">Kills</th>
+              <th class="py-4 px-4">Pontos</th>
             </tr>
           </thead>
           <tbody id="tabela" class="text-white"></tbody>
@@ -67,108 +85,184 @@
       </div>
     </section>
 
-    <!-- RODADAS -->
-    <section id="rodadas" class="mb-16">
-      <h2 class="text-4xl font-bold mb-10 text-center text-green-400 uppercase tracking-wide">
-        <i class="fas fa-calendar-alt mr-2"></i> 📅 Rodadas - Julho 2025
+    <section id="rodadas" class="mb-20">
+      <h2 class="text-4xl font-bold mb-10 text-center text-green-400 uppercase tracking-widest">
+        <i data-feather="calendar" class="mr-3"></i> Rodadas - Julho 2025
       </h2>
-      <div id="rodadas-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- As rodadas serão carregadas aqui dinamicamente -->
-      </div>
+      <div id="rodadas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
-
   </main>
 
-  <!-- Rodapé -->
-  <footer class="bg-[#121212] text-center text-sm py-6 text-gray-500 mt-auto">
+  <footer class="bg-[#121212] text-center py-6 text-gray-500 mt-auto">
+    <div class="mb-4">
+    </div>
     Clã VING eSports © 2025. Organização independente.
   </footer>
 
-  <!-- Scripts para carregar dados -->
+  <div id="meuModal" class="modal">
+    <div class="modal-content">
+      <div id="regrasContainer" class="max-h-[60vh] overflow-y-auto bg-gray-900 p-4 rounded-lg">
+        <p class="text-white" id="regrasTexto">Carregando regras...</p>
+      </div>
+      <div class="mt-4 text-right">
+        <button onclick="fecharModal()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
+          Fechar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script id="dados-json" type="application/json">
+  {
+    "premiacao_total": "315,00"
+  }
+  </script>
+
   <script>
-    // Carregar a navbar externa
-    fetch('navbar.html')
-      .then(res => res.text())
-      .then(html => {
-        document.body.insertAdjacentHTML('afterbegin', html);
-      })
-      .catch(() => {
-        console.error('Erro ao carregar a navbar.');
-      });
+    function abrirModal() {
+      document.getElementById('meuModal').classList.add('show');
+    }
+    function fecharModal() {
+      document.getElementById('meuModal').classList.remove('show');
+    }
 
-    // Carregar informações do campeonato
-    fetch('dados.json')
-      .then(res => res.json())
-      .then(dados => {
-        const premiaçãoValor = parseFloat(dados.premiacao_total.replace('.', '').replace(',', '.'));
-        const premiaoDiv = document.createElement('div');
-        premiaoDiv.className = 'bg-black p-4 rounded';
-        premiaoDiv.innerHTML = `
-          <div class='font-semibold mb-2'>💰 Premiação:</div>
-          <div id="premiacaoValor" class="text-3xl font-bold text-green-400 contagio">R$ 0,00</div>
-        `;
-        document.getElementById('dados').appendChild(premiaoDiv);
-        // Animar o valor de premiação
-        animateValor('premiacaoValor', premiaçãoValor);
-      });
+    async function carregarRegras() {
+      try {
+        const response = await fetch('regras.json');
+        const data = await response.json();
+        hojedocument.getElementById('regrasTexto').textContent = data.regras_gerais;
+      } catch (error) {
+        document.getElementById('regrasTexto').textContent = 'Erro ao carregar as regras.';
+      }
+    }
 
-    // Função de animação do valor
+    document.querySelector('#meuModal').addEventListener('transitionend', () => {
+      if (document.querySelector('.modal.show')) {
+        carregarRegras();
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      feather.replace();
+
+      fetch('navbar.html')
+        .then(res => res.text())
+        .then(html => document.getElementById('navbar-container').innerHTML = html);
+
+      const dadosJsonScript = document.getElementById('dados-json');
+      const dados = JSON.parse(dadosJsonScript.textContent);
+      const valorStr = dados.premiacao_total.replace(/\./g, '').replace(',', '.');
+      const valor = parseFloat(valorStr);
+      document.getElementById('dados').innerHTML = `
+        <div class='bg-black p-6 rounded-lg'>
+          <div class='font-semibold mb-2 text-xl'>Premiação Total:</div>
+          <div id="premiacaoValor" class="text-5xl font-bold text-green-400 contagio">R$ 0,00</div>
+        </div>`;
+      animateValor('premiacaoValor', valor);
+
+      carregarClassificacao();
+
+      fetch('rodadas.json')
+        .then(res => res.json())
+        .then(rodadas => {
+          const container = document.getElementById('rodadas-container');
+          container.innerHTML = rodadas.map(rodada => {
+            const statusTexto =
+              rodada.status === 'concluida' ? '✅ Concluída' :
+              rodada.status === 'hoje' ? '🟢 Hoje' :
+              '⏳ Por vir';
+
+            const statusCor =
+              rodada.status === 'concluida' ? 'border-green-500 text-green-400' :
+              rodada.status === 'hoje' ? 'border-blue-500 text-blue-300' :
+              'border-yellow-400 text-yellow-300';
+
+            return `
+              <div class="bg-gray-900 p-6 rounded-xl border ${statusCor} shadow-xl hover:scale-105 transition-transform">
+                <h3 class="text-2xl font-bold mb-4 flex items-center justify-between">
+                  <span><i data-feather="play-circle" class="mr-2"></i> Rodada ${rodada.numero} – ${rodada.data}</span>
+                  <span class="text-sm font-medium px-2 py-1 rounded bg-black border ${statusCor}">${statusTexto}</span>
+                </h3>
+                <div class="text-gray-300 space-y-2">
+                  ${rodada.partidas.map(p => `
+                    <p class="text-lg"><strong>${p.nome}</strong> - ${p.horario}</p>`).join('')}
+                </div>
+              </div>`;
+          }).join('');
+          feather.replace();
+        });
+    });
+
     function animateValor(id, valorFinal) {
       const el = document.getElementById(id);
       let valorAtual = 0;
-      const duracao = 2000; // 2 segundos
       const passos = 60;
       const incremento = valorFinal / passos;
       let passoAtual = 0;
-
-      const interval = setInterval(() => {
+      const intervalo = setInterval(() => {
         passoAtual++;
         valorAtual += incremento;
         if (passoAtual >= passos) {
-          clearInterval(interval);
+          clearInterval(intervalo);
           valorAtual = valorFinal;
         }
         el.textContent = `R$ ${valorAtual.toFixed(2).replace('.', ',')}`;
-      }, duracao / passos);
+      }, 2000 / passos);
     }
 
-    // Carregar classificação
-    fetch('classificacao.json')
-      .then(res => res.json())
-      .then(times => {
-        const tbody = document.getElementById('tabela');
-        // Ordenar por pontos, depois kills
-        times.sort((a, b) => b.pontos - a.pontos || b.kills - a.kills);
-        tbody.innerHTML = times.map((time, i) => `
-          <tr class="${i < 3 ? 'bg-green-800' : 'bg-gray-900'} border-b border-gray-700">
-            <td class="py-2">${i + 1}</td>
-            <td class="py-2 text-left px-2 font-semibold">${time.nome}</td>
-            <td class="py-2">${time.pj}</td>
-            <td class="py-2">${time.kills}</td>
-            <td class="py-2 font-bold text-green-400">${time.pontos}</td>
-          </tr>
-        `).join('');
-      });
+    async function carregarClassificacao() {
+      const rodadas = ['rodada1', 'rodada2', 'rodada3', 'rodada4'];
+      const mapasPorRodada = {
+        rodada1: ['miramar_1', 'taego_2', 'sanhok_3'],
+        rodada2: ['vikendi_1', 'deston_2', 'erangel_3'],
+        rodada3: ['a_definir_1', 'a_definir_2', 'a_definir_3'],
+        rodada4: ['a_definir_1', 'a_definir_2', 'a_definir_3']
+      };
+      const pontosPorColocacao = { 1: 10, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2 };
+      const penalizacoes = { INESQUECIVEL: 5 };
+      const totais = {}, kills = {}, nomes = {}, icones = {};
 
-    // Carregar rodadas
-    fetch('rodadas.json')
-      .then(res => res.json())
-      .then(rodadas => {
-        const container = document.getElementById('rodadas-container');
-        container.innerHTML = rodadas.map(rodada => {
-          const partidasHtml = rodada.partidas.map(p => `
-            <p class="mb-2"><strong>${p.nome}</strong> – ${p.horario}</p>
-          `).join('');
-          return `
-            <div class="bg-gradient-to-tr from-gray-900 via-black to-gray-900 p-6 rounded-2xl border border-green-600 shadow-lg hover:scale-105 transition-transform">
-              <h3 class="text-2xl font-bold text-green-400 mb-4">🟢 Rodada ${rodada.numero} – ${rodada.data}</h3>
-              <div class="space-y-2 text-gray-300 text-base">
-                ${partidasHtml}
-              </div>
-            </div>
-          `;
-        }).join('');
-      });
+      for (const rodada of rodadas) {
+        for (const mapa of mapasPorRodada[rodada]) {
+          try {
+            const dados = await fetch(`jogos/${rodada}/${mapa}.json`).then(res => res.json());
+            for (const entry of dados) {
+              if (entry.kills === 0 && entry.colocacao === 0) continue;
+              const nome = entry.time.trim();
+              const key = nome.toUpperCase();
+              nomes[key] = nome;
+              totais[key] = (totais[key] || 0) + ((pontosPorColocacao[entry.colocacao] || 0) + entry.kills);
+              kills[key] = (kills[key] || 0) + entry.kills;
+            }
+          } catch { }
+        }
+      }
+
+      for (const key in penalizacoes) {
+        if (totais[key]) {
+          totais[key] = Math.max(0, totais[key] - penalizacoes[key]);
+        }
+      }
+
+      const lista = Object.keys(totais).map(nome => ({
+        nome: nomes[nome],
+        pontos: totais[nome],
+        kills: kills[nome],
+        icone: `${nomes[nome].toLowerCase().replace(/\s+/g, '-').replace(/[áãâéêíóôõúç]/g, c => ({ 'á':'a','ã':'a','â':'a','é':'e','ê':'e','í':'i','ó':'o','ô':'o','õ':'o','ú':'u','ç':'c'}[c] || c))}.png`
+      }));
+
+      lista.sort((a, b) => b.pontos - a.pontos || b.kills - a.kills);
+
+      document.getElementById('tabela').innerHTML = lista.map((t, i) => `
+        <tr class="${i < 3 ? 'bg-green-800' : 'bg-gray-900'} border-b border-gray-700">
+          <td class="py-3 font-bold text-xl">${i + 1}</td>
+          <td class="py-3 px-4 text-left flex items-center gap-4">
+            <img src="imagens/times/${t.icone}" class="w-[var(--logo-size)] h-[var(--logo-size)] rounded-full border-2 border-black" alt="${t.nome}">
+            <span class="text-lg font-semibold">${t.nome}</span>
+          </td>
+          <td class="py-3 text-lg">${t.kills}</td>
+          <td class="py-3 font-bold text-green-400 text-xl">${t.pontos}</td>
+        </tr>`).join('');
+    }
   </script>
-</body>
-</html>
+</body></html>

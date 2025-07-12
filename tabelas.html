@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Classificações - VING PUBG</title>
+  <title>Classificação VING PUBG</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -15,25 +15,41 @@
     html {
       scroll-behavior: smooth;
     }
+    img.time-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 0.5rem;
+      margin-right: 8px;
+    }
+    img.mapa-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 0.75rem;
+      margin-left: 12px;
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- NAVBAR -->
+  <!-- Navbar -->
   <div id="navbar-container"></div>
 
-  <!-- CONTEÚDO PRINCIPAL -->
+  <!-- Conteúdo principal -->
   <main class="flex-1 max-w-6xl mx-auto px-4 py-10 space-y-10">
 
-    <!-- RANKING GERAL -->
+    <!-- Ranking Geral -->
     <section aria-labelledby="ranking-geral-title">
-      <h2 id="ranking-geral-title" class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-trophy mr-2"></i>Ranking Geral</h2>
+      <h2 id="ranking-geral-title" class="text-3xl font-bold mb-6 flex items-center gap-2">
+        <i class="fa-solid fa-trophy text-yellow-400 text-2xl"></i>Ranking Geral
+      </h2>
       <div class="overflow-x-auto">
-        <table class="w-full bg-black rounded-lg border border-gray-700 text-sm text-center table-fixed">
+        <table class="w-full bg-black rounded-lg border border-gray-700 text-base text-center">
           <thead class="bg-gray-800 text-gray-300">
             <tr>
-              <th scope="col" class="border border-gray-700 px-2 py-2">Time</th>
-              <th scope="col" class="border border-gray-700 px-2 py-2">Pontos Totais</th>
+              <th class="border border-gray-700 px-4 py-3">Time</th>
+              <th class="border border-gray-700 px-4 py-3">Pontos Totais</th>
             </tr>
           </thead>
           <tbody id="ranking-geral" class="text-white"></tbody>
@@ -41,102 +57,111 @@
       </div>
     </section>
 
-    <!-- DROPDOWN SELETOR DE RODADA -->
-    <section aria-labelledby="seletor-rodada-title">
-      <h2 id="seletor-rodada-title" class="text-xl font-semibold mb-2"><i class="fas fa-list-ul mr-2"></i>Rodadas</h2>
-      <label for="seletor-rodada" class="block text-white mb-2">Escolha a rodada para visualizar os resultados:</label>
-      <select id="seletor-rodada" class="bg-gray-800 text-white p-2 rounded border border-gray-600 focus:outline-none">
+    <!-- Seletor de rodadas -->
+    <section>
+      <label for="seletor-rodada" class="block text-white mb-3 text-lg">
+        <i class="fa-solid fa-list-check mr-2"></i>Selecione a rodada:
+      </label>
+      <select id="seletor-rodada" class="bg-gray-800 text-white p-3 rounded border border-gray-600 text-lg">
         <option value="rodada1">Rodada 1</option>
         <option value="rodada2">Rodada 2</option>
+        <option value="rodada3">Rodada 3</option>
+        <option value="rodada4">Rodada 4</option>
       </select>
     </section>
 
-    <!-- RODADAS -->
-    <section id="rodadas">
+    <!-- Rodadas -->
+    <section id="rodadas" class="mt-10 space-y-12">
       <div id="rodada1" class="space-y-10" aria-label="Rodada 1"></div>
       <div id="rodada2" class="space-y-10 hidden" aria-label="Rodada 2"></div>
-    </section>
-
-    <!-- INFORMAÇÕES SOBRE OS JOGOS -->
-    <section class="bg-gray-900 p-4 rounded-lg shadow-inner" aria-labelledby="info-jogos">
-      <h2 id="info-jogos" class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-info-circle mr-2"></i>Sobre os Jogos</h2>
-      <p class="mb-2">📌 Modo de Jogo: TPP</p>
-      <p class="mb-2">🗺 Mapas da 1ª Rodada:</p>
-      <ul class="list-disc list-inside mb-2">
-        <li>⿡ MIRAMAR</li>
-        <li>⿢ TAEGO</li>
-        <li>⿣ SANHOK</li>
-      </ul>
-      <p class="text-green-400">🔄 Os mapas serão jogados na ordem acima. Prepare sua estratégia!</p>
+      <div id="rodada3" class="space-y-10 hidden" aria-label="Rodada 3"></div>
+      <div id="rodada4" class="space-y-10 hidden" aria-label="Rodada 4"></div>
     </section>
 
   </main>
 
-  <!-- RODAPÉ -->
+  <!-- Rodapé -->
   <footer class="bg-[#121212] text-center py-6 text-gray-500 mt-auto">
-    <section class="mb-10 bg-gray-800 p-4 rounded-lg shadow-inner max-w-6xl mx-auto px-4" aria-labelledby="sistema-pontuacao">
-      <h2 id="sistema-pontuacao" class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-calculator mr-2"></i>Sistema de Pontuação</h2>
-      <ul class="list-disc list-inside text-left mb-2 text-sm">
-        <li>🥇 1º lugar: <strong>10 pontos</strong></li>
-        <li>🥈 2º lugar: <strong>6 pontos</strong></li>
-        <li>🥉 3º lugar: <strong>5 pontos</strong></li>
-        <li>4º lugar: <strong>4 pontos</strong></li>
-        <li>5º lugar: <strong>3 pontos</strong></li>
-        <li>6º lugar: <strong>2 pontos</strong></li>
-        <li>7º lugar ou pior: <strong>0 pontos</strong></li>
-        <li>💥 Cada kill: <strong>+1 ponto</strong></li>
-      </ul>
-      <p class="text-gray-300 text-xs">📌 Exemplo: um time que ficou em 2º lugar com 5 kills recebe <strong>6 + 5 = 11 pontos</strong>.</p>
-    </section>
     <p class="text-sm">Clã VING eSports © 2025. Organização independente.</p>
   </footer>
 
-  <!-- SCRIPT PRINCIPAL -->
+  <!-- Scripts -->
   <script>
     const pontosPorColocacao = { 1: 10, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2 };
-    const penalizacoes = {
-      "INESQUECIVEL": 5
-    };
+    const penalizacoes = { "INESQUECIVEL": 5 };
     const totais = {};
     const nomesOriginais = {};
 
-    async function carregarRodada(mapas, containerId) {
-      const container = document.getElementById(containerId);
-      for (const mapa of mapas) {
+    const rodadas = {
+      rodada1: ["miramar_1", "taego_2", "sanhok_3"],
+      rodada2: ["vikendi_1", "deston_2", "erangel_3"],
+      rodada3: ["a_definir_1", "a_definir_2", "a_definir_3"],
+      rodada4: ["a_definir_1", "a_definir_2", "a_definir_3"]
+    };
+
+    const mapaNomes = {
+      miramar: "Miramar",
+      taego: "Taego",
+      sanhok: "Sanhok",
+      erangel: "Erangel",
+      deston: "Deston",
+      vikendi: "Vikendi",
+      a_definir: "A Definir"
+    };
+
+    async function carregarRodada(rodadaId) {
+      const container = document.getElementById(rodadaId);
+      container.innerHTML = "";
+
+      for (const mapa of rodadas[rodadaId]) {
         try {
-          const dados = await fetch(`jogos/${mapa.toLowerCase()}.json`).then(res => res.json());
+          const dados = await fetch(`jogos/${rodadaId}/${mapa}.json`).then(res => res.json());
+
+          const nomeMapa = mapa.split("_")[0];
+          const numeroJogo = mapa.split("_")[1];
+          const mapaNomeFormatado = mapaNomes[nomeMapa] || nomeMapa;
+          const mapaImagem = `imagens/mapas/${nomeMapa}.png`;
+
           const tabela = document.createElement("section");
           tabela.innerHTML = `
-            <h3 class="text-xl font-semibold mb-4 text-white"><i class="fas fa-map mr-2"></i>${mapa}</h3>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-2xl font-semibold text-white flex items-center gap-3">
+                <i class="fa-solid fa-map-location-dot text-blue-400"></i>
+                ${mapaNomeFormatado.toUpperCase()} - JOGO ${numeroJogo}
+              </h3>
+              <img src="${mapaImagem}" alt="${mapaNomeFormatado}" class="mapa-logo" />
+            </div>
             <div class="overflow-x-auto">
-              <table class="w-full text-sm text-center border border-gray-700">
+              <table class="w-full text-base text-center border border-gray-700">
                 <thead class="bg-gray-800 text-gray-300">
                   <tr>
-                    <th class="border border-gray-700 px-2 py-2">Time</th>
-                    <th class="border border-gray-700 px-2 py-2">Classificação</th>
-                    <th class="border border-gray-700 px-2 py-2">Kills</th>
-                    <th class="border border-gray-700 px-2 py-2">Pontos</th>
+                    <th class="border border-gray-700 px-4 py-2">Time</th>
+                    <th class="border border-gray-700 px-4 py-2">Colocação</th>
+                    <th class="border border-gray-700 px-4 py-2">Kills</th>
+                    <th class="border border-gray-700 px-4 py-2">Pontos</th>
                   </tr>
                 </thead>
                 <tbody class="text-white">
                   ${dados.map((entry, i) => {
+                    if (entry.kills === 0 && (!entry.colocacao || entry.colocacao === 0)) return "";
                     const nomeNormalizado = entry.time.trim().toUpperCase();
                     const nomeOriginal = entry.time.trim();
-                    const pontos = (entry.colocacao >= 1 && entry.colocacao <= 6 ? pontosPorColocacao[entry.colocacao] : 0) + entry.kills;
+                    const pontos = (pontosPorColocacao[entry.colocacao] || 0) + entry.kills;
 
-                    if (!totais[nomeNormalizado]) {
-                      totais[nomeNormalizado] = 0;
-                      nomesOriginais[nomeNormalizado] = nomeOriginal;
-                    }
+                    nomesOriginais[nomeNormalizado] = nomeOriginal;
+                    totais[nomeNormalizado] = (totais[nomeNormalizado] || 0) + pontos;
 
-                    totais[nomeNormalizado] += pontos;
+                    const imgSrc = `imagens/times/${nomeOriginal.toLowerCase().replace(/[\s\-]+/g, "-")}.png`;
 
                     return `
                       <tr class="${i % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}">
-                        <td class="px-2 py-2 text-left">${nomeOriginal}</td>
-                        <td class="px-2 py-2">${entry.colocacao}º</td>
-                        <td class="px-2 py-2">${entry.kills}</td>
-                        <td class="px-2 py-2">${pontos}</td>
+                        <td class="px-4 py-3 flex items-center gap-2 text-left">
+                          <img src="${imgSrc}" alt="${nomeOriginal}" class="time-logo">
+                          ${nomeOriginal}
+                        </td>
+                        <td class="px-4 py-3">${entry.colocacao || '-'}</td>
+                        <td class="px-4 py-3">${entry.kills}</td>
+                        <td class="px-4 py-3">${pontos}</td>
                       </tr>
                     `;
                   }).join("")}
@@ -145,62 +170,66 @@
             </div>
           `;
           container.appendChild(tabela);
-        } catch (error) {
-          console.warn(`Erro ao carregar dados de ${mapa}:`, error);
+        } catch (err) {
+          container.innerHTML += `<p class="text-red-500">Erro ao carregar ${mapa}</p>`;
         }
       }
     }
 
     function aplicarPenalizacoesEAtualizarRanking() {
-      for (const nome in penalizacoes) {
-        if (totais[nome]) {
-          totais[nome] -= penalizacoes[nome];
-          if (totais[nome] < 0) totais[nome] = 0;
+      const rankingContainer = document.getElementById("ranking-geral");
+      const totaisComPenalizacao = {};
+
+      for (const time in totais) {
+        let pontos = totais[time];
+        if (penalizacoes[time]) {
+          pontos -= penalizacoes[time];
+          if (pontos < 0) pontos = 0;
         }
+        totaisComPenalizacao[time] = pontos;
       }
 
-      const ranking = Object.entries(totais)
-        .sort((a, b) => b[1] - a[1])
-        .map(([nomeNormalizado, pontos]) => {
-          const penalidade = penalizacoes[nomeNormalizado] || 0;
-          return `
-            <tr class="border border-gray-700 ${pontos > 0 ? 'bg-gray-900' : 'bg-gray-800'}">
-              <td class="px-2 py-2 text-left">
-                ${nomesOriginais[nomeNormalizado]}
-                ${penalidade > 0 ? `<span class="text-red-500 text-xs ml-2">- ${penalidade} pts</span>` : ''}
-              </td>
-              <td class="px-2 py-2">${pontos}</td>
-            </tr>
-          `;
-        }).join("");
-
-      document.getElementById("ranking-geral").innerHTML = ranking;
+      const ordenado = Object.entries(totaisComPenalizacao).sort((a, b) => b[1] - a[1]);
+      rankingContainer.innerHTML = ordenado.map(([nome, pontos]) => {
+        const penalidade = penalizacoes[nome] || 0;
+        const nomeOriginal = nomesOriginais[nome] || nome;
+        return `
+          <tr class="border border-gray-700 ${pontos > 0 ? 'bg-gray-900' : 'bg-gray-800'}">
+            <td class="px-4 py-3 text-left">${nomeOriginal}
+              ${penalidade > 0 ? `<span class="text-red-500 text-xs ml-2">- ${penalidade} pts</span>` : ''}
+            </td>
+            <td class="px-4 py-3">${pontos}</td>
+          </tr>
+        `;
+      }).join("");
     }
 
-    async function iniciar() {
-      await carregarRodada(["MIRAMAR", "TAEGO", "SANHOK"], "rodada1");
-      await carregarRodada(["RODADA2"], "rodada2"); // Ex: arquivo jogos/rodada2.json
+    async function iniciarRodada(rodadaId) {
+      Object.keys(totais).forEach(k => delete totais[k]);
+      Object.keys(nomesOriginais).forEach(k => delete nomesOriginais[k]);
+      await carregarRodada(rodadaId);
       aplicarPenalizacoesEAtualizarRanking();
     }
 
-    document.getElementById("seletor-rodada").addEventListener("change", function () {
-      const rodadaSelecionada = this.value;
+    document.getElementById("seletor-rodada").addEventListener("change", async function () {
+      const selecionada = this.value;
       document.querySelectorAll("#rodadas > div").forEach(div => div.classList.add("hidden"));
-      document.getElementById(rodadaSelecionada).classList.remove("hidden");
+      document.getElementById(selecionada).classList.remove("hidden");
+      await iniciarRodada(selecionada);
     });
 
-    iniciar();
+    window.addEventListener("load", async () => {
+      document.getElementById("rodada1").classList.remove("hidden");
+      await iniciarRodada("rodada1");
+    });
   </script>
 
-  <!-- Navbar externa -->
+  <!-- Carrega navbar -->
   <script>
-    fetch('navbar.html')
+    fetch("navbar.html")
       .then(res => res.text())
-      .then(data => {
-        document.getElementById('navbar-container').innerHTML = data;
-      })
-      .catch(err => {
-        console.error("Erro ao carregar navbar:", err);
+      .then(html => {
+        document.getElementById("navbar-container").innerHTML = html;
       });
   </script>
 
