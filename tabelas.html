@@ -86,6 +86,11 @@
     async function carregarDados() {
       const totais = {};
       const nomesOriginais = {};
+      const penalizacoes = {
+        "INESQUECIVEL": 5
+        // Ex: "OUTRO TIME": 3
+      };
+
       const container = document.getElementById("mapas");
 
       for (const mapa of mapas) {
@@ -137,15 +142,29 @@
         }
       }
 
-      // Geração do ranking geral
+      // Aplicar penalizações
+      for (const nome in penalizacoes) {
+        if (totais[nome]) {
+          totais[nome] -= penalizacoes[nome];
+          if (totais[nome] < 0) totais[nome] = 0;
+        }
+      }
+
+      // Geração do ranking geral com penalizações
       const ranking = Object.entries(totais)
         .sort((a, b) => b[1] - a[1])
-        .map(([nomeNormalizado, pontos]) => `
-          <tr class="border border-gray-700 ${pontos > 0 ? 'bg-gray-900' : 'bg-gray-800'}">
-            <td class="px-2 py-2 text-left">${nomesOriginais[nomeNormalizado]}</td>
-            <td class="px-2 py-2">${pontos}</td>
-          </tr>
-        `).join("");
+        .map(([nomeNormalizado, pontos]) => {
+          const penalidade = penalizacoes[nomeNormalizado] || 0;
+          return `
+            <tr class="border border-gray-700 ${pontos > 0 ? 'bg-gray-900' : 'bg-gray-800'}">
+              <td class="px-2 py-2 text-left">
+                ${nomesOriginais[nomeNormalizado]}
+                ${penalidade > 0 ? `<span class="text-red-500 text-xs ml-2">- ${penalidade} pts</span>` : ''}
+              </td>
+              <td class="px-2 py-2">${pontos}</td>
+            </tr>
+          `;
+        }).join("");
 
       document.getElementById("ranking-geral").innerHTML = ranking;
     }
