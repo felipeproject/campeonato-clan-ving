@@ -25,6 +25,22 @@
   <!-- Conteúdo principal -->
   <main class="flex-1 max-w-6xl mx-auto px-4 py-10">
 
+    <!-- Ranking Geral -->
+    <section class="mb-10">
+      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-trophy mr-2"></i> Ranking Geral</h3>
+      <div class="overflow-x-auto">
+        <table class="w-full bg-black rounded-lg border border-gray-700 text-sm text-center table-fixed">
+          <thead class="bg-gray-800 text-gray-300">
+            <tr>
+              <th class="border border-gray-700 px-2 py-2">Time</th>
+              <th class="border border-gray-700 px-2 py-2">Pontos Totais</th>
+            </tr>
+          </thead>
+          <tbody id="ranking-geral" class="text-white"></tbody>
+        </table>
+      </div>
+    </section>
+
     <!-- Informações sobre os jogos -->
     <section class="mb-8 bg-gray-900 p-4 rounded-lg shadow-inner">
       <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-info-circle mr-2"></i> Sobre os Jogos</h3>
@@ -41,21 +57,6 @@
     <!-- Tabelas dos mapas -->
     <div id="mapas" class="space-y-10"></div>
 
-    <!-- Ranking Geral -->
-    <section class="mt-16">
-      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-trophy mr-2"></i> Ranking Geral</h3>
-      <div class="overflow-x-auto">
-        <table class="w-full bg-black rounded-lg border border-gray-700 text-sm text-center table-fixed">
-          <thead class="bg-gray-800 text-gray-300">
-            <tr>
-              <th class="border border-gray-700 px-2 py-2">Time</th>
-              <th class="border border-gray-700 px-2 py-2">Pontos Totais</th>
-            </tr>
-          </thead>
-          <tbody id="ranking-geral" class="text-white"></tbody>
-        </table>
-      </div>
-    </section>
   </main>
 
   <!-- Rodapé -->
@@ -88,7 +89,6 @@
       const nomesOriginais = {};
       const penalizacoes = {
         "INESQUECIVEL": 5
-        // Ex: "OUTRO TIME": 3
       };
 
       const container = document.getElementById("mapas");
