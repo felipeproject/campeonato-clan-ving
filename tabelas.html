@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Classificações dos Jogos - VING PUBG</title>
+  <title>Classificações - VING PUBG</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
@@ -22,18 +22,18 @@
   <!-- NAVBAR -->
   <div id="navbar-container"></div>
 
-  <!-- Conteúdo principal -->
-  <main class="flex-1 max-w-6xl mx-auto px-4 py-10">
+  <!-- CONTEÚDO PRINCIPAL -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 py-10 space-y-10">
 
-    <!-- Ranking Geral -->
-    <section class="mb-10">
-      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-trophy mr-2"></i> Ranking Geral</h3>
+    <!-- RANKING GERAL -->
+    <section aria-labelledby="ranking-geral-title">
+      <h2 id="ranking-geral-title" class="text-2xl font-bold mb-4 flex items-center"><i class="fas fa-trophy mr-2"></i>Ranking Geral</h2>
       <div class="overflow-x-auto">
         <table class="w-full bg-black rounded-lg border border-gray-700 text-sm text-center table-fixed">
           <thead class="bg-gray-800 text-gray-300">
             <tr>
-              <th class="border border-gray-700 px-2 py-2">Time</th>
-              <th class="border border-gray-700 px-2 py-2">Pontos Totais</th>
+              <th scope="col" class="border border-gray-700 px-2 py-2">Time</th>
+              <th scope="col" class="border border-gray-700 px-2 py-2">Pontos Totais</th>
             </tr>
           </thead>
           <tbody id="ranking-geral" class="text-white"></tbody>
@@ -41,9 +41,25 @@
       </div>
     </section>
 
-    <!-- Informações sobre os jogos -->
-    <section class="mb-8 bg-gray-900 p-4 rounded-lg shadow-inner">
-      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-info-circle mr-2"></i> Sobre os Jogos</h3>
+    <!-- DROPDOWN SELETOR DE RODADA -->
+    <section aria-labelledby="seletor-rodada-title">
+      <h2 id="seletor-rodada-title" class="text-xl font-semibold mb-2"><i class="fas fa-list-ul mr-2"></i>Rodadas</h2>
+      <label for="seletor-rodada" class="block text-white mb-2">Escolha a rodada para visualizar os resultados:</label>
+      <select id="seletor-rodada" class="bg-gray-800 text-white p-2 rounded border border-gray-600 focus:outline-none">
+        <option value="rodada1">Rodada 1</option>
+        <option value="rodada2">Rodada 2</option>
+      </select>
+    </section>
+
+    <!-- RODADAS -->
+    <section id="rodadas">
+      <div id="rodada1" class="space-y-10" aria-label="Rodada 1"></div>
+      <div id="rodada2" class="space-y-10 hidden" aria-label="Rodada 2"></div>
+    </section>
+
+    <!-- INFORMAÇÕES SOBRE OS JOGOS -->
+    <section class="bg-gray-900 p-4 rounded-lg shadow-inner" aria-labelledby="info-jogos">
+      <h2 id="info-jogos" class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-info-circle mr-2"></i>Sobre os Jogos</h2>
       <p class="mb-2">📌 Modo de Jogo: TPP</p>
       <p class="mb-2">🗺 Mapas da 1ª Rodada:</p>
       <ul class="list-disc list-inside mb-2">
@@ -51,20 +67,16 @@
         <li>⿢ TAEGO</li>
         <li>⿣ SANHOK</li>
       </ul>
-      <p class="text-green-400">🔄 Os mapas serão jogados na ordem acima, prepare sua estratégia!</p>
+      <p class="text-green-400">🔄 Os mapas serão jogados na ordem acima. Prepare sua estratégia!</p>
     </section>
-
-    <!-- Tabelas dos mapas -->
-    <div id="mapas" class="space-y-10"></div>
 
   </main>
 
-  <!-- Rodapé -->
+  <!-- RODAPÉ -->
   <footer class="bg-[#121212] text-center py-6 text-gray-500 mt-auto">
-    <section class="mb-10 bg-gray-800 p-4 rounded-lg shadow-inner">
-      <h3 class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-calculator mr-2"></i> Sistema de Pontuação</h3>
-      <p class="mb-2">🔢 A pontuação segue o padrão oficial do <strong>PUBG Global Championship (PGC)</strong>:</p>
-      <ul class="list-disc list-inside mb-2">
+    <section class="mb-10 bg-gray-800 p-4 rounded-lg shadow-inner max-w-6xl mx-auto px-4" aria-labelledby="sistema-pontuacao">
+      <h2 id="sistema-pontuacao" class="text-xl font-semibold mb-4 flex items-center"><i class="fas fa-calculator mr-2"></i>Sistema de Pontuação</h2>
+      <ul class="list-disc list-inside text-left mb-2 text-sm">
         <li>🥇 1º lugar: <strong>10 pontos</strong></li>
         <li>🥈 2º lugar: <strong>6 pontos</strong></li>
         <li>🥉 3º lugar: <strong>5 pontos</strong></li>
@@ -74,32 +86,28 @@
         <li>7º lugar ou pior: <strong>0 pontos</strong></li>
         <li>💥 Cada kill: <strong>+1 ponto</strong></li>
       </ul>
-      <p class="text-sm text-gray-300">📌 Exemplo: um time que ficou em 2º lugar com 5 kills recebe <strong>6 + 5 = 11 pontos</strong>.</p>
+      <p class="text-gray-300 text-xs">📌 Exemplo: um time que ficou em 2º lugar com 5 kills recebe <strong>6 + 5 = 11 pontos</strong>.</p>
     </section>
-    Clã VING eSports © 2025. Organização independente.
+    <p class="text-sm">Clã VING eSports © 2025. Organização independente.</p>
   </footer>
 
-  <!-- Script de carregamento dos dados -->
+  <!-- SCRIPT PRINCIPAL -->
   <script>
-    const mapas = ["MIRAMAR", "TAEGO", "SANHOK"];
     const pontosPorColocacao = { 1: 10, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2 };
+    const penalizacoes = {
+      "INESQUECIVEL": 5
+    };
+    const totais = {};
+    const nomesOriginais = {};
 
-    async function carregarDados() {
-      const totais = {};
-      const nomesOriginais = {};
-      const penalizacoes = {
-        "INESQUECIVEL": 5
-      };
-
-      const container = document.getElementById("mapas");
-
+    async function carregarRodada(mapas, containerId) {
+      const container = document.getElementById(containerId);
       for (const mapa of mapas) {
         try {
           const dados = await fetch(`jogos/${mapa.toLowerCase()}.json`).then(res => res.json());
-
           const tabela = document.createElement("section");
           tabela.innerHTML = `
-            <h2 class="text-xl font-semibold mb-4 text-white"><i class="fas fa-map mr-2"></i>${mapa}</h2>
+            <h3 class="text-xl font-semibold mb-4 text-white"><i class="fas fa-map mr-2"></i>${mapa}</h3>
             <div class="overflow-x-auto">
               <table class="w-full text-sm text-center border border-gray-700">
                 <thead class="bg-gray-800 text-gray-300">
@@ -141,8 +149,9 @@
           console.warn(`Erro ao carregar dados de ${mapa}:`, error);
         }
       }
+    }
 
-      // Aplicar penalizações
+    function aplicarPenalizacoesEAtualizarRanking() {
       for (const nome in penalizacoes) {
         if (totais[nome]) {
           totais[nome] -= penalizacoes[nome];
@@ -150,7 +159,6 @@
         }
       }
 
-      // Geração do ranking geral com penalizações
       const ranking = Object.entries(totais)
         .sort((a, b) => b[1] - a[1])
         .map(([nomeNormalizado, pontos]) => {
@@ -169,18 +177,30 @@
       document.getElementById("ranking-geral").innerHTML = ranking;
     }
 
-    carregarDados();
+    async function iniciar() {
+      await carregarRodada(["MIRAMAR", "TAEGO", "SANHOK"], "rodada1");
+      await carregarRodada(["RODADA2"], "rodada2"); // Ex: arquivo jogos/rodada2.json
+      aplicarPenalizacoesEAtualizarRanking();
+    }
+
+    document.getElementById("seletor-rodada").addEventListener("change", function () {
+      const rodadaSelecionada = this.value;
+      document.querySelectorAll("#rodadas > div").forEach(div => div.classList.add("hidden"));
+      document.getElementById(rodadaSelecionada).classList.remove("hidden");
+    });
+
+    iniciar();
   </script>
 
-  <!-- Script para carregar a navbar externa -->
+  <!-- Navbar externa -->
   <script>
     fetch('navbar.html')
-      .then(response => response.text())
+      .then(res => res.text())
       .then(data => {
         document.getElementById('navbar-container').innerHTML = data;
       })
-      .catch(error => {
-        console.error('Erro ao carregar a navbar:', error);
+      .catch(err => {
+        console.error("Erro ao carregar navbar:", err);
       });
   </script>
 
