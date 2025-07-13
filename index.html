@@ -18,6 +18,12 @@
       border-radius: 10px;
       margin: 0 auto;
     }
+    .delay-200 {
+      animation-delay: 0.2s;
+    }
+    .delay-400 {
+      animation-delay: 0.4s;
+    }
   </style>
 </head>
 <body class="text-white">
@@ -57,7 +63,7 @@
     const rodadas = [
       { data: new Date(2025, 6, 5, 21, 0, 0), nome: "Rodada 1", mapas: ["Miramar", "Taego", "Sanhok"] },
       { data: new Date(2025, 6, 12, 21, 0, 0), nome: "Rodada 2", mapas: ["Vikendi", "Deston", "Erangel"] },
-      { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["Viking", "Deston", "Miramar"] },
+      { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["Vikendi", "Deston", "Miramar"] },
       { data: new Date(2025, 6, 26, 21, 0, 0), nome: "Rodada 4", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] }
     ];
 
@@ -75,12 +81,13 @@
 
     function atualizarContadorPara(rodada) {
       const contador = document.getElementById("contador");
+
       const atualizar = () => {
         const agora = new Date();
         const diff = rodada.data - agora;
 
         if (diff <= 0) {
-          contador.textContent = "É hoje! 21h!";
+          contador.innerHTML = `<span class="text-green-400 animate-pulse">A terceira rodada começa agora!</span>`;
           return;
         }
 
@@ -89,11 +96,11 @@
         const minutos = Math.floor((diff / (1000 * 60)) % 60);
         const segundos = Math.floor((diff / 1000) % 60);
 
-        let texto = "Contagem regressiva: ";
-        if (dias > 0) texto += `${dias}d `;
-        texto += `${horas}h ${minutos}m ${segundos}s`;
+        const frase = `Início da terceira rodada em ${dias} dias, ${horas} horas, ${minutos} minutos e ${segundos} segundos`;
 
-        contador.textContent = texto;
+        const pontinhos = `<span class="animate-pulse">.</span><span class="animate-pulse delay-200">.</span><span class="animate-pulse delay-400">.</span>`;
+
+        contador.innerHTML = `<span>${frase} ${pontinhos}</span>`;
       };
 
       atualizar();
