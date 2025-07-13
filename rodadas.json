@@ -27,9 +27,11 @@
       },
       {
         "nome": " Deston"
+        "horario": "21h19"
       },
       {
         "nome": " Erangel"
+        "horario": "21h42"
       }
     ]
   },
@@ -40,6 +42,7 @@
     "partidas": [
       {
         "nome": " Vikendi"
+        "horario": "21h"
       },
       {
         "nome": " Deston"
