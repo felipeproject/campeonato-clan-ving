@@ -57,7 +57,7 @@
     const rodadas = [
       { data: new Date(2025, 6, 5, 21, 0, 0), nome: "Rodada 1", mapas: ["Miramar", "Taego", "Sanhok"] },
       { data: new Date(2025, 6, 12, 21, 0, 0), nome: "Rodada 2", mapas: ["Vikendi", "Deston", "Erangel"] },
-      { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] },
+      { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["Viking", "Deston", "Miramar"] },
       { data: new Date(2025, 6, 26, 21, 0, 0), nome: "Rodada 4", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] }
     ];
 
@@ -76,84 +76,6 @@
     function atualizarContadorPara(rodada) {
       const contador = document.getElementById("contador");
       const atualizar = () => {
-        const agora = new Date();
-        const diff = rodada.data - agora;
-
-        if (diff <= 0) {
-          contador.textContent = "É hoje! 21h!";
-          return;
-        }
-
-        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const minutos = Math.floor((diff / (1000 * 60)) % 60);
-        const segundos = Math.floor((diff / 1000) % 60);
-
-        let texto = "Contagem regressiva: ";
-        if (dias > 0) texto += `${dias}d `;
-        texto += `${horas}h ${minutos}m ${segundos}s`;
-
-        contador.textContent = texto;
-      };
-
-      atualizar();
-      setInterval(atualizar, 1000);
-    }
-
-    function gerarHorarios(mapas, inicio) {
-      const partidas = [];
-      const tempoPorPartida = 35; // minutos
-      for (let i = 0; i < mapas.length; i++) {
-        if (mapas[i] === "Mapa A Definir...") {
-          partidas.push(`${mapas[i]}`);
-        } else {
-          const partidaInicio = new Date(inicio.getTime() + i * tempoPorPartida * 60000);
-          const horario = partidaInicio.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-          partidas.push(`${mapas[i]} - Início ${horario}`);
-        }
-      }
-      return partidas;
-    }
-
-    function mostrarRodada(rodada) {
-      const container = document.getElementById("rodada-ativa");
-
-      if (!rodada) {
-        container.innerHTML = `<p class="text-center text-red-400 font-semibold">Nenhuma rodada futura disponível. Campeonato encerrado.</p>`;
-        document.getElementById("contador").textContent = "";
-        return;
-      }
-
-      const horarios = gerarHorarios(rodada.mapas, rodada.data);
-
-      container.innerHTML = `
-        <div class="bg-[#1c1c1c] p-4 rounded shadow">
-          <h2 class="text-xl font-semibold mb-1">${rodada.nome} – ${rodada.data.toLocaleDateString()}</h2>
-          <p class="text-sm mb-3">${rodada.status}</p>
-          <ul class="list-disc ml-5 text-sm text-gray-400">
-            ${horarios.map(info => `<li>${info}</li>`).join("")}
-          </ul>
-        </div>
-      `;
-    }
-
-    // Carregar navbar externa
-    fetch('navbar.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('navbar-container').innerHTML = html;
-      });
-
-    // Inicialização
-    const rodadaAtiva = getRodadaAtiva();
-    mostrarRodada(rodadaAtiva);
-    if (rodadaAtiva) {
-      atualizarContadorPara(rodadaAtiva);
-    }
-  </script>
-</body>
-</html>
-
         const agora = new Date();
         const diff = rodada.data - agora;
 
