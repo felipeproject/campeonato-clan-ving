@@ -22,14 +22,6 @@
     .contagio {
       animation: pulse 2s infinite;
     }
-    @keyframes pulse {
-      0%, 100% {
-        box-shadow: 0 0 10px 2px #22c55e;
-      }
-      50% {
-        box-shadow: 0 0 20px 4px #22c55e;
-      }
-    }
     .modal {
       position: fixed;
       inset: 0;
@@ -67,9 +59,18 @@
     </section>
 
     <section id="classificacao" class="mb-20">
-      <h2 class="text-4xl font-bold mb-10 flex items-center justify-center">
+      <h2 class="text-4xl font-bold mb-4 flex items-center justify-center">
         <i data-feather="star" class="mr-3"></i> Classificação Geral
       </h2>
+
+      <!-- Botão info das regras -->
+      <div class="flex justify-end mb-2">
+        <button onclick="abrirModal()" 
+          class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded flex items-center gap-2">
+          <i data-feather="info"></i> Info
+        </button>
+      </div>
+
       <div class="overflow-x-auto">
         <table class="w-full text-lg text-center bg-black rounded-lg overflow-hidden">
           <thead class="bg-gray-800 text-gray-300">
@@ -99,10 +100,29 @@
     Clã VING eSports © 2025. Organização independente.
   </footer>
 
+  <!-- Modal de Regras -->
   <div id="meuModal" class="modal">
     <div class="modal-content">
       <div id="regrasContainer" class="max-h-[60vh] overflow-y-auto bg-gray-900 p-4 rounded-lg">
-        <p class="text-white" id="regrasTexto">Carregando regras...</p>
+        <p class="text-white" id="regrasTexto">
+          Sistema de pontos:
+          <ul class="list-disc list-inside mt-2">
+            <li><strong>Kills:</strong> Cada kill vale 1 ponto.</li>
+            <li><strong>Posição:</strong>
+              <ul class="list-decimal list-inside ml-5">
+                <li>1º lugar = 10 pontos</li>
+                <li>2º lugar = 6 pontos</li>
+                <li>3º lugar = 5 pontos</li>
+                <li>4º lugar = 4 pontos</li>
+                <li>5º lugar = 3 pontos</li>
+                <li>6º lugar = 2 pontos</li>
+                <li>7º lugar em diante = 0 pontos</li>
+              </ul>
+            </li>
+          </ul>
+          <br />
+          Os pontos totais são a soma de kills + pontos por colocação.
+        </p>
       </div>
       <div class="mt-4 text-right">
         <button onclick="fecharModal()" class="bg-red-600 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded">
@@ -128,19 +148,14 @@
 
     async function carregarRegras() {
       try {
-        const response = await fetch('regras.json');
-        const data = await response.json();
-        hojedocument.getElementById('regrasTexto').textContent = data.regras_gerais;
+        // Caso queira buscar regras de arquivo externo, pode ativar aqui
+        // const response = await fetch('regras.json');
+        // const data = await response.json();
+        // document.getElementById('regrasTexto').textContent = data.regras_gerais;
       } catch (error) {
         document.getElementById('regrasTexto').textContent = 'Erro ao carregar as regras.';
       }
     }
-
-    document.querySelector('#meuModal').addEventListener('transitionend', () => {
-      if (document.querySelector('.modal.show')) {
-        carregarRegras();
-      }
-    });
 
     document.addEventListener("DOMContentLoaded", () => {
       feather.replace();

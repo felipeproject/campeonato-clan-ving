@@ -19,7 +19,7 @@
   {
     "numero": 2,
     "data": "12/07/2025",
-    "status": "hoje",
+    "status": "concluida",
     "partidas": [
       {
         "nome": " Vikendi",
@@ -39,13 +39,13 @@
     "status": "por_vir",
     "partidas": [
       {
-        "nome": "A Definir..."
+        "nome": "Mapa A Definir..."
       },
       {
-        "nome": "A Definir..."
+        "nome": "Mapa A Definir..."
       },
       {
-        "nome": "A Definir..."
+        "nome": "Mapa A Definir..."
       }
     ]
   },
@@ -55,13 +55,13 @@
     "status": "por_vir",
     "partidas": [
       {
-        "nome": "A Definir..."
+        "nome": "Mapa A Definir..."
       },
       {
-        "nome": "A Definir..."
+        "nome": "Mapa A Definir..."
       },
       {
-        "nome": "A Definir..."
+        "nome": "Mapa A Definir..."
       }
     ]
   }

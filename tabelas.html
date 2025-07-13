@@ -1,237 +1,375 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Classificação VING PUBG</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <style>
-    body {
-      background-color: #0f0f0f;
-      color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Classificação VING PUBG</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<style>
+  body {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  img.time-logo {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    margin-right: 8px;
+  }
+  img.mapa-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 0.75rem;
+    margin-left: 12px;
+  }
+
+  /* Badge penalização inicialmente invisível */
+  .badge-penalizacao {
+    display: inline-block;
+    background-color: rgba(220, 38, 38, 0.15);
+    color: #dc2626;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(220, 38, 38, 0.3);
+    margin-left: 6px;
+    user-select: none;
+
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+  }
+
+  /* Quando o mouse estiver sobre a linha, mostra a badge */
+  tbody#ranking-geral tr:hover .badge-penalizacao {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Barra de rolagem customizada para rodadas */
+  #rodadas > div {
+    scrollbar-width: thin;
+    scrollbar-color: #555 #222;
+  }
+  #rodadas > div::-webkit-scrollbar {
+    height: 8px;
+  }
+  #rodadas > div::-webkit-scrollbar-track {
+    background: #222;
+    border-radius: 4px;
+  }
+  #rodadas > div::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+    border: 2px solid #222;
+  }
+
+  /* Indicador para arrastar horizontalmente */
+  .scroll-indicator {
+    position: relative;
+    margin-bottom: 0.5rem;
+    color: #bbb;
+    font-size: 0.875rem;
+    font-weight: 500;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    justify-content: flex-end;
+  }
+  .scroll-indicator i {
+    animation: moveRight 1.5s infinite;
+    color: #888;
+  }
+
+  @keyframes moveRight {
+    0% {
+      transform: translateX(0);
+      opacity: 0.6;
     }
-    html {
-      scroll-behavior: smooth;
+    50% {
+      transform: translateX(10px);
+      opacity: 1;
     }
-    img.time-logo {
-      width: 48px;
-      height: 48px;
-      object-fit: contain;
-      border-radius: 0.5rem;
-      margin-right: 8px;
+    100% {
+      transform: translateX(0);
+      opacity: 0.6;
     }
-    img.mapa-logo {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 0.75rem;
-      margin-left: 12px;
-    }
-  </style>
+  }
+
+</style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-  <!-- Navbar -->
-  <div id="navbar-container"></div>
+<!-- Navbar -->
+<div id="navbar-container"></div>
 
-  <!-- Conteúdo principal -->
-  <main class="flex-1 max-w-6xl mx-auto px-4 py-10 space-y-10">
+<!-- Conteúdo principal -->
+<main class="flex-1 max-w-6xl mx-auto px-4 py-10 space-y-10">
 
-    <!-- Ranking Geral -->
-    <section aria-labelledby="ranking-geral-title">
-      <h2 id="ranking-geral-title" class="text-3xl font-bold mb-6 flex items-center gap-2">
-        <i class="fa-solid fa-trophy text-yellow-400 text-2xl"></i>Ranking Geral
-      </h2>
-      <div class="overflow-x-auto">
-        <table class="w-full bg-black rounded-lg border border-gray-700 text-base text-center">
-          <thead class="bg-gray-800 text-gray-300">
-            <tr>
-              <th class="border border-gray-700 px-4 py-3">Time</th>
-              <th class="border border-gray-700 px-4 py-3">Pontos Totais</th>
-            </tr>
-          </thead>
-          <tbody id="ranking-geral" class="text-white"></tbody>
-        </table>
-      </div>
-    </section>
+  <!-- Ranking Geral -->
+  <section aria-labelledby="ranking-geral-title">
+    <h2 id="ranking-geral-title" class="text-3xl font-bold mb-6 flex items-center gap-2">
+      <i class="fa-solid fa-trophy text-yellow-400 text-2xl"></i>Ranking Geral
+    </h2>
+    <div class="overflow-x-auto">
+      <table class="w-full bg-black rounded-lg border border-gray-700 text-base text-center">
+        <thead class="bg-gray-800 text-gray-300">
+          <tr>
+            <th class="border border-gray-700 px-4 py-3">Time</th>
+            <th class="border border-gray-700 px-4 py-3">Kills</th>
+            <th class="border border-gray-700 px-4 py-3">Pontos Totais</th>
+          </tr>
+        </thead>
+        <tbody id="ranking-geral" class="text-white"></tbody>
+      </table>
+    </div>
+  </section>
 
-    <!-- Seletor de rodadas -->
-    <section>
-      <label for="seletor-rodada" class="block text-white mb-3 text-lg">
-        <i class="fa-solid fa-list-check mr-2"></i>Selecione a rodada:
-      </label>
-      <select id="seletor-rodada" class="bg-gray-800 text-white p-3 rounded border border-gray-600 text-lg">
-        <option value="rodada1">Rodada 1</option>
-        <option value="rodada2">Rodada 2</option>
-        <option value="rodada3">Rodada 3</option>
-        <option value="rodada4">Rodada 4</option>
-      </select>
-    </section>
+  <!-- Seletor de rodadas -->
+  <section>
+    <label for="seletor-rodada" class="block text-white mb-3 text-lg">
+      <i class="fa-solid fa-list-check mr-2"></i>Selecione a rodada:
+    </label>
+    <select id="seletor-rodada" class="bg-gray-800 text-white p-3 rounded border border-gray-600 text-lg">
+      <option value="rodada1">Rodada 1</option>
+      <option value="rodada2">Rodada 2</option>
+      <option value="rodada3">Rodada 3</option>
+      <option value="rodada4">Rodada 4</option>
+    </select>
+  </section>
 
-    <!-- Rodadas -->
-    <section id="rodadas" class="mt-10 space-y-12">
-      <div id="rodada1" class="space-y-10" aria-label="Rodada 1"></div>
-      <div id="rodada2" class="space-y-10 hidden" aria-label="Rodada 2"></div>
-      <div id="rodada3" class="space-y-10 hidden" aria-label="Rodada 3"></div>
-      <div id="rodada4" class="space-y-10 hidden" aria-label="Rodada 4"></div>
-    </section>
+  <!-- Rodadas (3 jogos lado a lado) -->
+  <section id="rodadas" class="mt-10 space-y-12">
+    <!-- Indicador de arrastar horizontal -->
+    <div class="scroll-indicator">
+      Arraste para o lado <i class="fa-solid fa-arrow-right"></i>
+    </div>
 
-  </main>
+    <div
+      id="rodada1"
+      class="flex gap-8 overflow-x-auto"
+      aria-label="Rodada 1"
+      data-carregado="false"
+    ></div>
+    <div
+      id="rodada2"
+      class="flex gap-8 overflow-x-auto hidden"
+      aria-label="Rodada 2"
+      data-carregado="false"
+    ></div>
+    <div
+      id="rodada3"
+      class="flex gap-8 overflow-x-auto hidden"
+      aria-label="Rodada 3"
+      data-carregado="false"
+    ></div>
+    <div
+      id="rodada4"
+      class="flex gap-8 overflow-x-auto hidden"
+      aria-label="Rodada 4"
+      data-carregado="false"
+    ></div>
+  </section>
 
-  <!-- Rodapé -->
-  <footer class="bg-[#121212] text-center py-6 text-gray-500 mt-auto">
-    <p class="text-sm">Clã VING eSports © 2025. Organização independente.</p>
-  </footer>
+</main>
 
-  <!-- Scripts -->
-  <script>
-    const pontosPorColocacao = { 1: 10, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2 };
-    const penalizacoes = { "INESQUECIVEL": 5 };
-    const totais = {};
-    const nomesOriginais = {};
+<!-- Rodapé -->
+<footer id="footer" class="bg-[#121212] text-center py-6 text-gray-500 mt-auto">
+  <p class="text-sm">Clã VING eSports © 2025. Organização independente.</p>
+</footer>
 
-    const rodadas = {
-      rodada1: ["miramar_1", "taego_2", "sanhok_3"],
-      rodada2: ["vikendi_1", "deston_2", "erangel_3"],
-      rodada3: ["a_definir_1", "a_definir_2", "a_definir_3"],
-      rodada4: ["a_definir_1", "a_definir_2", "a_definir_3"]
-    };
+<script>
+  // Toggle menu mobile (garantir que o botão existe no navbar.html)
+  const btnMobileMenu = document.getElementById('btn-mobile-menu');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (btnMobileMenu && mobileMenu) {
+    btnMobileMenu.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
 
-    const mapaNomes = {
-      miramar: "Miramar",
-      taego: "Taego",
-      sanhok: "Sanhok",
-      erangel: "Erangel",
-      deston: "Deston",
-      vikendi: "Vikendi",
-      a_definir: "A Definir"
-    };
+  const pontosPorColocacao = { 1: 10, 2: 6, 3: 5, 4: 4, 5: 3, 6: 2 };
+  const penalizacoes = { "INESQUECIVEL": 5 };
 
-    async function carregarRodada(rodadaId) {
-      const container = document.getElementById(rodadaId);
-      container.innerHTML = "";
+  let killsTotais = {};
+  let pontosTotaisGeral = {};
+  let nomesOriginais = {};
 
+  const rodadas = {
+    rodada1: ["miramar_1", "taego_2", "sanhok_3"],
+    rodada2: ["vikendi_1", "deston_2", "erangel_3"],
+    rodada3: ["a_definir_1", "a_definir_2", "a_definir_3"],
+    rodada4: ["a_definir_1", "a_definir_2", "a_definir_3"]
+  };
+
+  const mapaNomes = {
+    miramar: "Miramar",
+    taego: "Taego",
+    sanhok: "Sanhok",
+    erangel: "Erangel",
+    deston: "Deston",
+    vikendi: "Vikendi",
+    a_definir: "A Definir"
+  };
+
+  const rodadasId = ['rodada1', 'rodada2', 'rodada3', 'rodada4'];
+
+  function atualizarRanking() {
+    const tbody = document.getElementById("ranking-geral");
+    tbody.innerHTML = "";
+    const ordenados = Object.entries(pontosTotaisGeral).sort((a, b) => b[1] - a[1]);
+    for (const [nomeNormalizado, pontos] of ordenados) {
+      const nomeOriginal = nomesOriginais[nomeNormalizado] || nomeNormalizado;
+      const kills = killsTotais[nomeNormalizado] || 0;
+
+      // Verifica penalização e pontos ajustados
+      const penalizacao = penalizacoes[nomeNormalizado] || 0;
+      const pontosAjustados = pontos - penalizacao;
+
+      tbody.innerHTML += `
+        <tr class="${pontosAjustados > 0 ? 'bg-gray-900' : 'bg-gray-800'} border border-gray-700">
+          <td class="px-4 py-3 flex items-center gap-2 text-left">
+            <img src="imagens/times/${nomeOriginal.toLowerCase().replace(/[\s\-]+/g, "-")}.png" class="time-logo" alt="${nomeOriginal}" />
+            ${nomeOriginal}
+            ${penalizacao > 0 ? `<span class="badge-penalizacao">-${penalizacao} pts</span>` : ''}
+          </td>
+          <td class="px-4 py-3">${kills}</td>
+          <td class="px-4 py-3">${pontosAjustados}</td>
+        </tr>
+      `;
+    }
+  }
+
+  async function carregarTodasRodadas() {
+    for (const rodadaId of rodadasId) {
       for (const mapa of rodadas[rodadaId]) {
         try {
           const dados = await fetch(`jogos/${rodadaId}/${mapa}.json`).then(res => res.json());
+          dados.forEach(entry => {
+            if (entry.kills === 0 && (!entry.colocacao || entry.colocacao === 0)) return;
 
-          const nomeMapa = mapa.split("_")[0];
-          const numeroJogo = mapa.split("_")[1];
-          const mapaNomeFormatado = mapaNomes[nomeMapa] || nomeMapa;
-          const mapaImagem = `imagens/mapas/${nomeMapa}.png`;
+            const nomeNormalizado = entry.time.trim().toUpperCase();
+            const nomeOriginal = entry.time.trim();
+            const pontos = (pontosPorColocacao[entry.colocacao] || 0) + entry.kills;
 
-          const tabela = document.createElement("section");
-          tabela.innerHTML = `
-            <div class="flex items-center justify-between mb-4">
-              <h3 class="text-2xl font-semibold text-white flex items-center gap-3">
-                <i class="fa-solid fa-map-location-dot text-blue-400"></i>
-                ${mapaNomeFormatado.toUpperCase()} - JOGO ${numeroJogo}
-              </h3>
-              <img src="${mapaImagem}" alt="${mapaNomeFormatado}" class="mapa-logo" />
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-base text-center border border-gray-700">
-                <thead class="bg-gray-800 text-gray-300">
-                  <tr>
-                    <th class="border border-gray-700 px-4 py-2">Time</th>
-                    <th class="border border-gray-700 px-4 py-2">Colocação</th>
-                    <th class="border border-gray-700 px-4 py-2">Kills</th>
-                    <th class="border border-gray-700 px-4 py-2">Pontos</th>
-                  </tr>
-                </thead>
-                <tbody class="text-white">
-                  ${dados.map((entry, i) => {
-                    if (entry.kills === 0 && (!entry.colocacao || entry.colocacao === 0)) return "";
-                    const nomeNormalizado = entry.time.trim().toUpperCase();
-                    const nomeOriginal = entry.time.trim();
-                    const pontos = (pontosPorColocacao[entry.colocacao] || 0) + entry.kills;
+            if (!killsTotais[nomeNormalizado]) killsTotais[nomeNormalizado] = 0;
+            killsTotais[nomeNormalizado] += entry.kills;
 
-                    nomesOriginais[nomeNormalizado] = nomeOriginal;
-                    totais[nomeNormalizado] = (totais[nomeNormalizado] || 0) + pontos;
+            if (!pontosTotaisGeral[nomeNormalizado]) pontosTotaisGeral[nomeNormalizado] = 0;
+            pontosTotaisGeral[nomeNormalizado] += pontos;
 
-                    const imgSrc = `imagens/times/${nomeOriginal.toLowerCase().replace(/[\s\-]+/g, "-")}.png`;
-
-                    return `
-                      <tr class="${i % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}">
-                        <td class="px-4 py-3 flex items-center gap-2 text-left">
-                          <img src="${imgSrc}" alt="${nomeOriginal}" class="time-logo">
-                          ${nomeOriginal}
-                        </td>
-                        <td class="px-4 py-3">${entry.colocacao || '-'}</td>
-                        <td class="px-4 py-3">${entry.kills}</td>
-                        <td class="px-4 py-3">${pontos}</td>
-                      </tr>
-                    `;
-                  }).join("")}
-                </tbody>
-              </table>
-            </div>
-          `;
-          container.appendChild(tabela);
+            if (!nomesOriginais[nomeNormalizado]) nomesOriginais[nomeNormalizado] = nomeOriginal;
+          });
         } catch (err) {
-          container.innerHTML += `<p class="text-red-500">Erro ao carregar ${mapa}</p>`;
+          console.error(`Erro ao carregar ${mapa}:`, err);
         }
       }
     }
+    atualizarRanking();
+  }
 
-    function aplicarPenalizacoesEAtualizarRanking() {
-      const rankingContainer = document.getElementById("ranking-geral");
-      const totaisComPenalizacao = {};
+  async function mostrarRodada(rodadaId) {
+    rodadasId.forEach(id => {
+      document.getElementById(id).classList.toggle('hidden', id !== rodadaId);
+    });
 
-      for (const time in totais) {
-        let pontos = totais[time];
-        if (penalizacoes[time]) {
-          pontos -= penalizacoes[time];
-          if (pontos < 0) pontos = 0;
-        }
-        totaisComPenalizacao[time] = pontos;
-      }
+    const container = document.getElementById(rodadaId);
+    if (container.dataset.carregado === "true") return;
 
-      const ordenado = Object.entries(totaisComPenalizacao).sort((a, b) => b[1] - a[1]);
-      rankingContainer.innerHTML = ordenado.map(([nome, pontos]) => {
-        const penalidade = penalizacoes[nome] || 0;
-        const nomeOriginal = nomesOriginais[nome] || nome;
-        return `
-          <tr class="border border-gray-700 ${pontos > 0 ? 'bg-gray-900' : 'bg-gray-800'}">
-            <td class="px-4 py-3 text-left">${nomeOriginal}
-              ${penalidade > 0 ? `<span class="text-red-500 text-xs ml-2">- ${penalidade} pts</span>` : ''}
-            </td>
-            <td class="px-4 py-3">${pontos}</td>
-          </tr>
+    container.innerHTML = "";
+
+    for (const mapa of rodadas[rodadaId]) {
+      try {
+        const dados = await fetch(`jogos/${rodadaId}/${mapa}.json`).then(res => res.json());
+        const nomeMapa = mapa.split("_")[0];
+        const numeroJogo = mapa.split("_")[1];
+        const mapaNomeFormatado = mapaNomes[nomeMapa] || nomeMapa;
+        const mapaImagem = `imagens/mapas/${nomeMapa}.png`;
+
+        const sectionEl = document.createElement("section");
+        sectionEl.className = "mb-10 flex-shrink-0 min-w-[320px]";
+
+        sectionEl.innerHTML = `
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-2xl font-semibold text-white flex items-center gap-3">
+              <i class="fa-solid fa-map-location-dot text-blue-400"></i>
+              ${mapaNomeFormatado.toUpperCase()} - JOGO ${numeroJogo}
+            </h3>
+            <img src="${mapaImagem}" alt="${mapaNomeFormatado}" class="mapa-logo" />
+          </div>
+          <div style="overflow-x:auto;">
+            <table
+              class="text-base text-center border border-gray-700 w-full"
+              style="white-space: nowrap;"
+            >
+              <thead class="bg-gray-800 text-gray-300">
+                <tr>
+                  <th class="border border-gray-700 px-4 py-2">Time</th>
+                  <th class="border border-gray-700 px-4 py-2">Colocação</th>
+                  <th class="border border-gray-700 px-4 py-2">Kills</th>
+                  <th class="border border-gray-700 px-4 py-2">Pontos</th>
+                </tr>
+              </thead>
+              <tbody class="text-white">
+                ${dados.map((entry, i) => {
+                  if (entry.kills === 0 && (!entry.colocacao || entry.colocacao === 0)) return "";
+                  const nomeOriginal = entry.time.trim();
+                  const pontos = (pontosPorColocacao[entry.colocacao] || 0) + entry.kills;
+                  const imgSrc = `imagens/times/${nomeOriginal.toLowerCase().replace(/[\s\-]+/g, "-")}.png`;
+
+                  return `
+                    <tr class="${i % 2 === 0 ? 'bg-gray-900' : 'bg-gray-800'}">
+                      <td class="px-4 py-3 flex items-center gap-2 text-left">
+                        <img src="${imgSrc}" alt="${nomeOriginal}" class="time-logo" />
+                        ${nomeOriginal}
+                      </td>
+                      <td class="px-4 py-3">${entry.colocacao || '-'}</td>
+                      <td class="px-4 py-3">${entry.kills}</td>
+                      <td class="px-4 py-3">${pontos}</td>
+                    </tr>
+                  `;
+                }).join("")}
+              </tbody>
+            </table>
+          </div>
         `;
-      }).join("");
+        container.appendChild(sectionEl);
+      } catch (err) {
+        container.innerHTML += `<p class="text-red-500">Erro ao carregar ${mapa}</p>`;
+      }
     }
 
-    async function iniciarRodada(rodadaId) {
-      Object.keys(totais).forEach(k => delete totais[k]);
-      Object.keys(nomesOriginais).forEach(k => delete nomesOriginais[k]);
-      await carregarRodada(rodadaId);
-      aplicarPenalizacoesEAtualizarRanking();
-    }
+    container.dataset.carregado = "true";
+  }
 
-    document.getElementById("seletor-rodada").addEventListener("change", async function () {
-      const selecionada = this.value;
-      document.querySelectorAll("#rodadas > div").forEach(div => div.classList.add("hidden"));
-      document.getElementById(selecionada).classList.remove("hidden");
-      await iniciarRodada(selecionada);
+  document.getElementById("seletor-rodada").addEventListener("change", (e) => {
+    mostrarRodada(e.target.value);
+  });
+
+  window.addEventListener("load", () => {
+    document.getElementById("seletor-rodada").value = "rodada1";
+    carregarTodasRodadas();
+    mostrarRodada("rodada1");
+  });
+</script>
+
+<script>
+  // Carregar navbar externa
+  fetch("navbar.html")
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById("navbar-container").innerHTML = html;
     });
-
-    window.addEventListener("load", async () => {
-      document.getElementById("rodada1").classList.remove("hidden");
-      await iniciarRodada("rodada1");
-    });
-  </script>
-
-  <!-- Carrega navbar -->
-  <script>
-    fetch("navbar.html")
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById("navbar-container").innerHTML = html;
-      });
-  </script>
+</script>
 
 </body>
 </html>

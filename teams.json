@@ -11,17 +11,6 @@
     ]
   },
   {
-    "nome": "ASAS DO INFERNO",
-    "logo": "imagens/times/asas-do-inferno.png",
-    "jogadores": [
-      "kalixone (C)",
-      "Thiagoxxv",
-      "Jasonvoorgt",
-      "RENATA_AK47",
-      "anderptgamer"
-    ]
-  },
-  {
     "nome": "STRAFE",
     "logo": "imagens/times/strafe.png",
     "jogadores": [
@@ -33,13 +22,25 @@
     ]
   },
   {
-    "nome": "FURIA DO FURACÃO",
-    "logo": "imagens/times/furia-do-furacao.png",
+    "nome": "INESQUECIVEL",
+    "logo": "imagens/times/inesquecivel.png",
     "jogadores": [
-      "furacaobr (C)",
-      "LucasFCA",
-      "Dedel32010324",
-      "FellipeVicente"
+      "Perobande (C)",
+      "El_gasolino",
+      "Peberinha *",
+      "LaygO_0",
+      "TheBill"
+    ]
+  },
+  {
+    "nome": "PINGYELLOW",
+    "logo": "imagens/times/pingyellow.png",
+    "jogadores": [
+      "TEXAS3006 (C)",
+      "STRAT_FPS",
+      "MESTRE-MCS",
+      "Lukyne_marth3",
+      "XxWarlockLFxX"
     ]
   },
   {
@@ -65,25 +66,24 @@
     ]
   },
   {
-    "nome": "PINGYELLOW",
-    "logo": "imagens/times/pingyellow.png",
+    "nome": "FURIA DO FURACÃO",
+    "logo": "imagens/times/furia-do-furacao.png",
     "jogadores": [
-      "TEXAS3006 (C)",
-      "STRAT_FPS",
-      "MESTRE-MCS",
-      "Lukyne_marth3",
-      "XxWarlockLFxX"
+      "furacaobr (C)",
+      "LucasFCA",
+      "Dedel32010324",
+      "FellipeVicente"
     ]
   },
   {
-    "nome": "INESQUECIVEL",
-    "logo": "imagens/times/inesquecivel.png",
+    "nome": "ASAS DO INFERNO",
+    "logo": "imagens/times/asas-do-inferno.png",
     "jogadores": [
-      "Perobande (C)",
-      "El_gasolino",
-      "Peberinha *",
-      "LaygO_0",
-      "TheBill"
+      "kalixone (C)",
+      "Thiagoxxv",
+      "Jasonvoorgt",
+      "RENATA_AK47",
+      "anderptgamer"
     ]
   }
 ]

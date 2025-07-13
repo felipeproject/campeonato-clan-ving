@@ -1,42 +1,32 @@
 [
   {
     "time": "INESQUECIVEL",
-    "colocacao": 0,
-    "kills": 0
-  },
-  {
-    "time": "TÓXICOS",
-    "colocacao": 0,
-    "kills": 0
+    "colocacao": 1,
+    "kills": 10
   },
   {
     "time": "STRAFE",
-    "colocacao": 0,
-    "kills": 0
-  },
-  {
-    "time": "Sons of Anarchy - Time A",
-    "colocacao": 0,
-    "kills": 0
+    "colocacao": 2,
+    "kills": 4
   },
   {
     "time": "PINGYELLOW",
-    "colocacao": 0,
+    "colocacao": 3,
     "kills": 0
   },
   {
     "time": "Sons of Anarchy - Time B",
-    "colocacao": 0,
+    "colocacao": 4,
     "kills": 0
   },
   {
-    "time": "FURIA DO FURACÃO",
-    "colocacao": 0,
+    "time": "Sons of Anarchy - Time A",
+    "colocacao": 5,
     "kills": 0
   },
   {
-    "time": "ASAS DO INFERNO",
-    "colocacao": 0,
+    "time": "TÓXICOS",
+    "colocacao": 6,
     "kills": 0
   }
 ]

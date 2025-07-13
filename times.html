@@ -12,6 +12,61 @@
       color: white;
       font-family: sans-serif;
     }
+
+    /* Grid responsivo: 1 coluna pequena, 2 médias, 4 grandes */
+    #times-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* Card com max-width responsivo */
+    .time-card {
+      background-color: #000;
+      border-radius: 1rem;
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+      max-width: clamp(300px, 90vw, 480px);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Logo com tamanho responsivo */
+    .time-logo {
+      width: clamp(120px, 20vw, 220px);
+      height: clamp(120px, 20vw, 220px);
+      object-fit: contain;
+      margin-bottom: 1.5rem;
+      border-radius: 0.5rem;
+    }
+
+    /* Nome do time */
+    .time-nome {
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      color: #22c55e; /* verde */
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    /* Lista de jogadores */
+    .time-jogadores {
+      list-style: disc inside;
+      color: #d1d5db; /* cinza claro */
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .time-jogadores li.text-yellow-400 {
+      color: #facc15;
+      font-weight: 600;
+    }
   </style>
 </head>
 
@@ -21,9 +76,9 @@
   <div id="navbar-container"></div>
 
   <!-- Secção dos Times -->
-  <section class="max-w-6xl mx-auto py-10 px-4 min-h-[60vh]">
-    <h2 class="text-2xl font-bold mb-6">Times Participantes</h2>
-    <div id="times-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+  <section class="py-10 min-h-[60vh]">
+    <h2 class="text-3xl font-bold mb-8 text-center">Times Participantes</h2>
+    <div id="times-container">
       Carregando times...
     </div>
   </section>
@@ -54,13 +109,12 @@
 
         times.forEach(time => {
           const card = document.createElement('div');
-          card.className = "bg-black rounded-xl p-4 shadow w-full max-w-xs mx-auto";
+          card.className = 'time-card';
 
-          // Montar o conteúdo do card
           card.innerHTML = `
-            <img src="${time.logo}" alt="${time.nome}" class="w-50 h-50 object-contain mx-auto mb-4" />
-            <h3 class="text-lg font-bold text-center text-green-400 mb-1">${time.nome}</h3>
-            <ul class="mt-2 text-sm text-gray-300 list-disc list-inside">
+            <img src="${time.logo}" alt="${time.nome}" class="time-logo" />
+            <h3 class="time-nome">${time.nome}</h3>
+            <ul class="time-jogadores">
               ${time.jogadores.map(j => {
                 const isCaptain = j.includes('(C)');
                 const style = isCaptain ? 'text-yellow-400 font-semibold' : '';

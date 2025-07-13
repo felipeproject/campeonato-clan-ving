@@ -57,8 +57,8 @@
     const rodadas = [
       { data: new Date(2025, 6, 5, 21, 0, 0), nome: "Rodada 1", mapas: ["Miramar", "Taego", "Sanhok"] },
       { data: new Date(2025, 6, 12, 21, 0, 0), nome: "Rodada 2", mapas: ["Vikendi", "Deston", "Erangel"] },
-      { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["A Definir...", "A Definir...", "A Definir..."] },
-      { data: new Date(2025, 6, 26, 21, 0, 0), nome: "Rodada 4", mapas: ["A Definir...", "A Definir...", "A Definir..."] }
+      { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] },
+      { data: new Date(2025, 6, 26, 21, 0, 0), nome: "Rodada 4", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] }
     ];
 
     function getRodadaAtiva() {
@@ -84,10 +84,16 @@
           return;
         }
 
-        const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const m = Math.floor((diff / (1000 * 60)) % 60);
-        const s = Math.floor((diff / 1000) % 60);
-        contador.textContent = `Contagem regressiva: ${h}h ${m}m ${s}s`;
+        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutos = Math.floor((diff / (1000 * 60)) % 60);
+        const segundos = Math.floor((diff / 1000) % 60);
+
+        let texto = "Contagem regressiva: ";
+        if (dias > 0) texto += `${dias}d `;
+        texto += `${horas}h ${minutos}m ${segundos}s`;
+
+        contador.textContent = texto;
       };
 
       atualizar();
@@ -98,9 +104,13 @@
       const partidas = [];
       const tempoPorPartida = 35; // minutos
       for (let i = 0; i < mapas.length; i++) {
-        const partidaInicio = new Date(inicio.getTime() + i * tempoPorPartida * 60000);
-        const horario = partidaInicio.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        partidas.push(`${mapas[i]} - ${mapas[i] !== "A Definir..." ? `Início ${horario}` : "undefined"}`);
+        if (mapas[i] === "Mapa A Definir...") {
+          partidas.push(`${mapas[i]}`);
+        } else {
+          const partidaInicio = new Date(inicio.getTime() + i * tempoPorPartida * 60000);
+          const horario = partidaInicio.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          partidas.push(`${mapas[i]} - Início ${horario}`);
+        }
       }
       return partidas;
     }
