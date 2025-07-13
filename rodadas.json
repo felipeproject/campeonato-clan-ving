@@ -5,14 +5,16 @@
     "status": "concluida",
     "partidas": [
       {
-        "nome": " Miramar",
+        "nome": "Miramar",
         "horario": "21h"
       },
       {
-        "nome": " Taego"
+        "nome": "Taego",
+        "horario": "21h30"
       },
       {
-        "nome": " Sanhok"
+        "nome": "Sanhok",
+        "horario": "22h"
       }
     ]
   },
@@ -22,14 +24,16 @@
     "status": "concluida",
     "partidas": [
       {
-        "nome": " Vikendi",
+        "nome": "Vikendi",
         "horario": "21h"
       },
       {
-        "nome": " Deston"
+        "nome": "Deston",
+        "horario": "21h30"
       },
       {
-        "nome": " Erangel"
+        "nome": "Erangel",
+        "horario": "22h"
       }
     ]
   },
@@ -39,14 +43,16 @@
     "status": "por_vir",
     "partidas": [
       {
-        "nome": " Vikendi"
+        "nome": "Vikendi",
         "horario": "21h"
       },
       {
-        "nome": " Deston"
+        "nome": "Deston",
+        "horario": "21h30"
       },
       {
-        "nome": " Miramar"
+        "nome": "Miramar",
+        "horario": "22h"
       }
     ]
   },
@@ -56,13 +62,16 @@
     "status": "por_vir",
     "partidas": [
       {
-        "nome": "Mapa A Definir..."
+        "nome": "Mapa A Definir...",
+        "horario": "21h"
       },
       {
-        "nome": "Mapa A Definir..."
+        "nome": "Mapa A Definir...",
+        "horario": "21h30"
       },
       {
-        "nome": "Mapa A Definir..."
+        "nome": "Mapa A Definir...",
+        "horario": "22h"
       }
     ]
   }
