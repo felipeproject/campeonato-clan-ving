@@ -57,6 +57,83 @@
     const rodadas = [
       { data: new Date(2025, 6, 5, 21, 0, 0), nome: "Rodada 1", mapas: ["Miramar", "Taego", "Sanhok"] },
       { data: new Date(2025, 6, 12, 21, 0, 0), nome: "Rodada 2", mapas: ["Vikendi", "Deston", "Erangel"] },
+      { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["Vikendi", "Deston", "Miramar"] },
+      { data: new Date(2025, 6, 26, 21, 0, 0), nome: "Rodada 4", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] }
+    ];
+
+    function getRodadaAtiva() {
+      const agora = new Date();
+      for (let rodada of rodadas) {
+        const data = rodada.data;
+        const mesmoDia = agora.toDateString() === data.toDateString();
+        const futura = agora < data;
+        if (mesmoDia) return { ...rodada, status: "🟢 Hoje" };
+        if (futura) return { ...rodada, status: "⏳ Por vir" };
+      }
+      return null;
+    }
+
+    function atualizarContadorPara(rodada) {
+      const contador = document.getElementById("contador");
+      const atualizar = () => {<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Campeonato VING - PUBG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #0f0f0f;
+      color: white;
+      font-family: sans-serif;
+    }
+    .hero-image {
+      width: 100%;
+      max-width: 600px;
+      height: auto;
+      border-radius: 10px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body class="text-white">
+
+  <!-- NAVBAR -->
+  <div id="navbar-container"></div>
+
+  <!-- HERO SECTION -->
+  <section class="text-center py-16 px-4 bg-[#121212] min-h-[60vh]">
+    <h1 class="text-4xl font-bold mb-2">CAMPEONATO PUBG - VING</h1>
+    <p class="text-lg text-gray-400 mb-4">Todo sábado de Julho • 21h • TTP • Premiação em dinheiro</p>
+
+    <!-- Imagem -->
+    <div class="my-6">
+      <img src="imagens/camp.jpg" alt="Ação do campeonato PUBG" class="hero-image">
+    </div>
+
+    <!-- Contador -->
+    <div class="text-2xl font-bold text-green-500 mb-4" id="contador">Carregando...</div>
+
+    <!-- Rodada ativa -->
+    <div id="rodada-ativa" class="max-w-xl mx-auto text-left"></div>
+
+    <!-- Botão -->
+    <div class="mt-6 text-center">
+      <a href="times.html" class="px-4 py-2 bg-green-600 rounded hover:bg-green-700">Ver Times</a>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer class="bg-[#121212] text-center text-sm py-6 text-gray-500 mt-12">
+    Clã VING eSports © 2025. Organização independente.
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    const rodadas = [
+      { data: new Date(2025, 6, 5, 21, 0, 0), nome: "Rodada 1", mapas: ["Miramar", "Taego", "Sanhok"] },
+      { data: new Date(2025, 6, 12, 21, 0, 0), nome: "Rodada 2", mapas: ["Vikendi", "Deston", "Erangel"] },
       { data: new Date(2025, 6, 19, 21, 0, 0), nome: "Rodada 3", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] },
       { data: new Date(2025, 6, 26, 21, 0, 0), nome: "Rodada 4", mapas: ["Mapa A Definir...", "Mapa A Definir...", "Mapa A Definir..."] }
     ];
@@ -76,6 +153,84 @@
     function atualizarContadorPara(rodada) {
       const contador = document.getElementById("contador");
       const atualizar = () => {
+        const agora = new Date();
+        const diff = rodada.data - agora;
+
+        if (diff <= 0) {
+          contador.textContent = "É hoje! 21h!";
+          return;
+        }
+
+        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutos = Math.floor((diff / (1000 * 60)) % 60);
+        const segundos = Math.floor((diff / 1000) % 60);
+
+        let texto = "Contagem regressiva: ";
+        if (dias > 0) texto += `${dias}d `;
+        texto += `${horas}h ${minutos}m ${segundos}s`;
+
+        contador.textContent = texto;
+      };
+
+      atualizar();
+      setInterval(atualizar, 1000);
+    }
+
+    function gerarHorarios(mapas, inicio) {
+      const partidas = [];
+      const tempoPorPartida = 35; // minutos
+      for (let i = 0; i < mapas.length; i++) {
+        if (mapas[i] === "Mapa A Definir...") {
+          partidas.push(`${mapas[i]}`);
+        } else {
+          const partidaInicio = new Date(inicio.getTime() + i * tempoPorPartida * 60000);
+          const horario = partidaInicio.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          partidas.push(`${mapas[i]} - Início ${horario}`);
+        }
+      }
+      return partidas;
+    }
+
+    function mostrarRodada(rodada) {
+      const container = document.getElementById("rodada-ativa");
+
+      if (!rodada) {
+        container.innerHTML = `<p class="text-center text-red-400 font-semibold">Nenhuma rodada futura disponível. Campeonato encerrado.</p>`;
+        document.getElementById("contador").textContent = "";
+        return;
+      }
+
+      const horarios = gerarHorarios(rodada.mapas, rodada.data);
+
+      container.innerHTML = `
+        <div class="bg-[#1c1c1c] p-4 rounded shadow">
+          <h2 class="text-xl font-semibold mb-1">${rodada.nome} – ${rodada.data.toLocaleDateString()}</h2>
+          <p class="text-sm mb-3">${rodada.status}</p>
+          <ul class="list-disc ml-5 text-sm text-gray-400">
+            ${horarios.map(info => `<li>${info}</li>`).join("")}
+          </ul>
+        </div>
+      `;
+    }
+
+    // Carregar navbar externa
+    fetch('navbar.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+      });
+
+    // Inicialização
+    const rodadaAtiva = getRodadaAtiva();
+    mostrarRodada(rodadaAtiva);
+    if (rodadaAtiva) {
+      atualizarContadorPara(rodadaAtiva);
+    }
+  </script>
+</body>
+</html>
+
         const agora = new Date();
         const diff = rodada.data - agora;
 
