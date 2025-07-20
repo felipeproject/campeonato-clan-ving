@@ -9,7 +9,7 @@
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <style>
     :root {
-      --logo-size: 100px;
+      --logo-size: 80px; /* Logo size adjusted for smaller screens */
     }
     body {
       background-color: #0f0f0f;
@@ -50,16 +50,16 @@
 
   <div id="navbar-container"></div>
 
-  <main class="flex-1 px-8 py-10">
-    <section id="info" class="mb-16">
-      <h2 class="text-4xl font-bold mb-6 flex items-center">
+  <main class="flex-1 px-4 sm:px-8 py-6 sm:py-10">
+    <section id="info" class="mb-12">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-6 flex items-center">
         <i data-feather="file-text" class="mr-3"></i> Informações do Campeonato
       </h2>
-      <div id="dados" class="grid grid-cols-1 md:grid-cols-2 gap-6">Carregando...</div>
+      <div id="dados" class="grid grid-cols-1 sm:grid-cols-2 gap-6">Carregando...</div>
     </section>
 
-    <section id="classificacao" class="mb-20">
-      <h2 class="text-4xl font-bold mb-4 flex items-center justify-center">
+    <section id="classificacao" class="mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4 flex items-center justify-center">
         <i data-feather="star" class="mr-3"></i> Classificação Geral
       </h2>
 
@@ -86,11 +86,11 @@
       </div>
     </section>
 
-    <section id="rodadas" class="mb-20">
-      <h2 class="text-4xl font-bold mb-10 text-center text-green-400 uppercase tracking-widest">
+    <section id="rodadas" class="mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-8 text-center text-green-400 uppercase tracking-widest">
         <i data-feather="calendar" class="mr-3"></i> Rodadas - Julho 2025
       </h2>
-      <div id="rodadas-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+      <div id="rodadas-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"></div>
     </section>
   </main>
 
@@ -199,7 +199,7 @@
                   <span class="text-sm font-medium px-2 py-1 rounded bg-black border ${statusCor}">${statusTexto}</span>
                 </h3>
                 <div class="text-gray-300 space-y-2">
-                  ${rodada.partidas.map(p => `
+                  ${rodada.partidas.map(p => `  
                     <p class="text-lg"><strong>${p.nome}</strong> - ${p.horario}</p>`).join('')}
                 </div>
               </div>`;
@@ -280,4 +280,5 @@
         </tr>`).join('');
     }
   </script>
-</body></html>
+</body>
+</html>
