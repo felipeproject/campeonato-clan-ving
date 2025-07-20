@@ -40,7 +40,7 @@
   {
     "numero": 3,
     "data": "19/07/2025",
-    "status": "por_vir",
+    "status": "concluida",
     "partidas": [
       {
         "nome": "Vikendi",
@@ -62,15 +62,15 @@
     "status": "por_vir",
     "partidas": [
       {
-        "nome": "Mapa A Definir...",
+        "nome": "Taego",
         "horario": "21h"
       },
       {
-        "nome": "Mapa A Definir...",
+        "nome": "Rondo",
         "horario": "21h30"
       },
       {
-        "nome": "Mapa A Definir...",
+        "nome": "Sanhok",
         "horario": "22h"
       }
     ]
