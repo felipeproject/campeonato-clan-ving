@@ -5,14 +5,19 @@
     "kills": 5
   },
   {
+    "time": "PINGYELLOW",
+    "colocacao": 2,
+    "kills": 3
+  },
+  {
     "time": "TÓXICOS",
     "colocacao": 3,
     "kills": 6
   },
   {
-    "time": "STRAFE",
-    "colocacao": 5,
-    "kills": 0
+    "time": "Sons of Anarchy - Time B",
+    "colocacao": 4,
+    "kills": 1
   },
   {
     "time": "Sons of Anarchy - Time A",
@@ -20,14 +25,9 @@
     "kills": 1
   },
   {
-    "time": "PINGYELLOW",
-    "colocacao": 2,
-    "kills": 3
-  },
-  {
-    "time": "Sons of Anarchy - Time B",
-    "colocacao": 4,
-    "kills": 1
+    "time": "STRAFE",
+    "colocacao": 5,
+    "kills": 0
   },
   {
     "time": "FURIA DO FURACÃO",
