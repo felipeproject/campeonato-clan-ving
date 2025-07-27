@@ -1,5 +1,15 @@
 [
   {
+    "time": "PINGYELLOW",
+    "colocacao": 1,
+    "kills": 4
+  },
+  {
+    "time": "STRAFE",
+    "colocacao": 2,
+    "kills": 1
+  },
+  {
     "time": "INESQUECIVEL",
     "colocacao": 3,
     "kills": 2
@@ -10,19 +20,9 @@
     "kills": 2
   },
   {
-    "time": "STRAFE",
-    "colocacao": 2,
-    "kills": 1
-  },
-  {
     "time": "Sons of Anarchy - Time A",
     "colocacao": 0,
     "kills": 0
-  },
-  {
-    "time": "PINGYELLOW",
-    "colocacao": 1,
-    "kills": 4
   },
   {
     "time": "Sons of Anarchy - Time B",
