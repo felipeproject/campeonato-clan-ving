@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Visualizador JSON MVP Embutido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background: #f7f7f7;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2c3e50;
+        }
+
+        .top-tables {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .top-table {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+            padding: 15px;
+            flex: 1 1 280px;
+            max-width: 350px;
+            min-width: 280px;
+        }
+
+        .top-table h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: #27ae60;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background-color: #27ae60;
+            color: white;
+            font-weight: 600;
+        }
+
+        .times-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .time {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .time h2 {
+            margin-top: 0;
+            color: #2980b9;
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 1.3rem;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                margin: 10px;
+            }
+
+            th,
+            td {
+                font-size: 0.8rem;
+                padding: 6px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Estatísticas por Time e Jogador</h1>
+
+    <div class="top-tables">
+        <div class="top-table" id="top-killers">
+            <h2>Top 5 Killers (Abates)</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jogador</th>
+                        <th>Time</th>
+                        <th>Abates</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="top-table" id="top-dano">
+            <h2>Top 5 Dano</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jogador</th>
+                        <th>Time</th>
+                        <th>Dano</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="top-table" id="top-assistencias">
+            <h2>Top 5 Assistências</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Jogador</th>
+                        <th>Time</th>
+                        <th>Assistências</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="conteudo" class="times-container"></div>
+
+    <script>
+        const dados = [
+            {
+                "time": "FURIA DO FURACÃO",
+                "jogadores": [
+                    { "jogador": "furacaobr (C)", "abates": 0, "assistencias": 0, "dano": 100 },
+                    { "jogador": "LucasFCA", "abates": 0, "assistencias": 0, "dano": 0 },
+                    { "jogador": "Dedel32010324", "abates": 0, "assistencias": 0, "dano": 0 },
+                    { "jogador": "FellipeVicente", "abates": 0, "assistencias": 0, "dano": 0 }
+                ]
+            },
+            {
+                "time": "ASAS DO INFERNO",
+                "jogadores": [
+                    { "jogador": "kalixone (C)", "abates": 0, "assistencias": 0, "dano": 0 },
+                    { "jogador": "Thiagoxxv", "abates": 0, "assistencias": 0, "dano": 0 },
+                    { "jogador": "Jasonvoorgt", "abates": 0, "assistencias": 0, "dano": 0 },
+                    { "jogador": "RENATA_AK47", "abates": 0, "assistencias": 0, "dano": 0 },
+                    { "jogador": "anderptgamer", "abates": 0, "assistencias": 0, "dano": 0 }
+                ]
+            },
+            {
+                "time": "INESQUECIVEL",
+                "jogadores": [
+                    { "jogador": "El_gasolino", "abates": 7, "assistencias": 11, "dano": 1485 },
+                    { "jogador": "LaygO_0", "abates": 4, "assistencias": 5, "dano": 637 },
+                    { "jogador": "Peberinha", "abates": 23, "assistencias": 6, "dano": 2025 },
+                    { "jogador": "Perobande", "abates": 27, "assistencias": 10, "dano": 4101 },
+                    { "jogador": "Perobinha", "abates": 6, "assistencias": 3, "dano": 1032 },
+                    { "jogador": "The-BiIL", "abates": 3, "assistencias": 6, "dano": 679 }
+                ]
+            },
+            {
+                "time": "PINGYELLOW",
+                "jogadores": [
+                    { "jogador": "Lukyne_marth3", "abates": 6, "assistencias": 4, "dano": 949 },
+                    { "jogador": "MESTRE-MCS", "abates": 5, "assistencias": 3, "dano": 679 },
+                    { "jogador": "STRAT_FPS", "abates": 13, "assistencias": 2, "dano": 1995 },
+                    { "jogador": "TEXAS3006", "abates": 3, "assistencias": 3, "dano": 579 },
+                    { "jogador": "XxWarlockLFxX", "abates": 16, "assistencias": 5, "dano": 2502 }
+                ]
+            },
+            {
+                "time": "STRAFE",
+                "jogadores": [
+                    { "jogador": "andflp", "abates": 2, "assistencias": 0, "dano": 763 },
+                    { "jogador": "Danielsr2", "abates": 3, "assistencias": 3, "dano": 631 },
+                    { "jogador": "Doomed_Aim", "abates": 8, "assistencias": 2, "dano": 1312 },
+                    { "jogador": "Paulao23", "abates": 0, "assistencias": 0, "dano": 201 },
+                    { "jogador": "WF_PROZIN", "abates": 4, "assistencias": 1, "dano": 572 }
+                ]
+            },
+            {
+                "time": "Sons of Anarchy - Time A",
+                "jogadores": [
+                    { "jogador": "caducast", "abates": 2, "assistencias": 0, "dano": 604 },
+                    { "jogador": "ET_BRISADO", "abates": 5, "assistencias": 2, "dano": 772 },
+                    { "jogador": "T0yzerAAA", "abates": 1, "assistencias": 1, "dano": 548 },
+                    { "jogador": "takkaoF", "abates": 0, "assistencias": 0, "dano": 228 }
+                ]
+            },
+            {
+                "time": "Sons of Anarchy - Time B",
+                "jogadores": [
+                    { "jogador": "JEAN01", "abates": 1, "assistencias": 1, "dano": 1205 },
+                    { "jogador": "LAYOGAME", "abates": 0, "assistencias": 2, "dano": 774 },
+                    { "jogador": "LopexRS", "abates": 0, "assistencias": 0, "dano": 241 },
+                    { "jogador": "Mateus_GB2", "abates": 1, "assistencias": 1, "dano": 85 },
+                    { "jogador": "Psamyster", "abates": 0, "assistencias": 0, "dano": 0 }
+                ]
+            },
+            {
+                "time": "TÓXICOS",
+                "jogadores": [
+                    { "jogador": "AdriMal", "abates": 7, "assistencias": 6, "dano": 1917 },
+                    { "jogador": "Dark-Funeral-666", "abates": 0, "assistencias": 2, "dano": 109 },
+                    { "jogador": "MBSILVEIRA", "abates": 15, "assistencias": 6, "dano": 2049 },
+                    { "jogador": "Racha_Cuca_AWM", "abates": 2, "assistencias": 0, "dano": 213 },
+                    { "jogador": "xJMaRcox", "abates": 7, "assistencias": 2, "dano": 1140 }
+                ]
+            }
+        ];
+
+        const conteudo = document.getElementById('conteudo');
+
+        // Função para calcular performance do time (soma de abates + assistências)
+        function calcularPerformance(time) {
+            return time.jogadores.reduce((acc, j) => acc + j.abates + j.assistencias, 0);
+        }
+
+        // Ordena times pelo desempenho (maior para menor)
+        dados.sort((a, b) => calcularPerformance(b) - calcularPerformance(a));
+
+        // Função que cria uma tabela para um conjunto de jogadores e colunas dinâmicas
+        function preencherTabela(tbody, jogadores, colunas) {
+            tbody.innerHTML = '';
+            jogadores.forEach(jogador => {
+                const tr = document.createElement('tr');
+                let html = '';
+                colunas.forEach(col => {
+                    html += `<td>${jogador[col.key]}</td>`;
+                });
+                tr.innerHTML = html;
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Extrair todos jogadores de todos times para facilitar o top
+        const todosJogadores = [];
+        dados.forEach(time => {
+            time.jogadores.forEach(jogador => {
+                todosJogadores.push({
+                    jogador: jogador.jogador,
+                    time: time.time,
+                    abates: jogador.abates,
+                    assistencias: jogador.assistencias,
+                    dano: jogador.dano
+                });
+            });
+        });
+
+        // Ordenar e pegar top 5 por critério
+        function top5Por(chave) {
+            return [...todosJogadores]
+                .sort((a, b) => b[chave] - a[chave])
+                .slice(0, 5);
+        }
+
+        // Preenche tabelas top 5
+        function preencherTopTables() {
+            const topKillers = top5Por('abates');
+            const topDano = top5Por('dano');
+            const topAssist = top5Por('assistencias');
+
+            // Killers
+            const tbodyKillers = document.querySelector('#top-killers tbody');
+            preencherTabela(tbodyKillers, topKillers, [
+                { key: 'jogador' },
+                { key: 'time' },
+                { key: 'abates' }
+            ]);
+
+            // Dano
+            const tbodyDano = document.querySelector('#top-dano tbody');
+            preencherTabela(tbodyDano, topDano, [
+                { key: 'jogador' },
+                { key: 'time' },
+                { key: 'dano' }
+            ]);
+
+            // Assistências
+            const tbodyAssist = document.querySelector('#top-assistencias tbody');
+            preencherTabela(tbodyAssist, topAssist, [
+                { key: 'jogador' },
+                { key: 'time' },
+                { key: 'assistencias' }
+            ]);
+        }
+
+        // Função que mostra os times e jogadores no layout grade
+        function mostrarDados(dados) {
+            conteudo.innerHTML = '';
+
+            dados.forEach(timeObj => {
+                const divTime = document.createElement('div');
+                divTime.className = 'time';
+
+                const titulo = document.createElement('h2');
+                titulo.textContent = timeObj.time || 'Sem Time';
+                divTime.appendChild(titulo);
+
+                const tabela = document.createElement('table');
+                tabela.innerHTML = `
+          <thead>
+            <tr>
+              <th>Jogador</th>
+              <th>Abates</th>
+              <th>Assistências</th>
+              <th>Dano</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        `;
+
+                const tbody = tabela.querySelector('tbody');
+
+                if (Array.isArray(timeObj.jogadores) && timeObj.jogadores.length > 0) {
+                    timeObj.jogadores.forEach(jogador => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+              <td>${jogador.jogador}</td>
+              <td>${jogador.abates}</td>
+              <td>${jogador.assistencias}</td>
+              <td>${jogador.dano}</td>
+            `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `<td colspan="4" style="text-align:center;">Nenhum jogador</td>`;
+                    tbody.appendChild(tr);
+                }
+
+                divTime.appendChild(tabela);
+                conteudo.appendChild(divTime);
+            });
+        }
+
+        // Executar tudo
+        preencherTopTables();
+        mostrarDados(dados);
+
+    </script>
+
+</body>
+
+</html>

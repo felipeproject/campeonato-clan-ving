@@ -1,0 +1,223 @@
+[
+    {
+        "time": "FURIA DO FURACÃO",
+        "jogadores": [
+            {
+                "jogador": "furacaobr",
+                "abates": 0,
+                "assistencias": 0,
+                "dano": 100
+            }
+        ]
+    },
+    {
+        "time": "INESQUECIVEL",
+        "jogadores": [
+            {
+                "jogador": "El_gasolino",
+                "abates": 7,
+                "assistencias": 11,
+                "dano": 1485
+            },
+            {
+                "jogador": "LaygO_0",
+                "abates": 4,
+                "assistencias": 5,
+                "dano": 637
+            },
+            {
+                "jogador": "Peberinha",
+                "abates": 23,
+                "assistencias": 6,
+                "dano": 2025
+            },
+            {
+                "jogador": "Perobande",
+                "abates": 27,
+                "assistencias": 10,
+                "dano": 4101
+            },
+            {
+                "jogador": "Perobinha",
+                "abates": 6,
+                "assistencias": 3,
+                "dano": 1032
+            },
+            {
+                "jogador": "The-BiIL",
+                "abates": 3,
+                "assistencias": 6,
+                "dano": 679
+            }
+        ]
+    },
+    {
+        "time": "PINGYELLOW",
+        "jogadores": [
+            {
+                "jogador": "Lukyne_marth3",
+                "abates": 6,
+                "assistencias": 4,
+                "dano": 949
+            },
+            {
+                "jogador": "MESTRE-MCS",
+                "abates": 5,
+                "assistencias": 3,
+                "dano": 679
+            },
+            {
+                "jogador": "STRAT_FPS",
+                "abates": 13,
+                "assistencias": 2,
+                "dano": 1995
+            },
+            {
+                "jogador": "TEXAS3006",
+                "abates": 3,
+                "assistencias": 3,
+                "dano": 579
+            },
+            {
+                "jogador": "XxWarlockLFxX",
+                "abates": 16,
+                "assistencias": 5,
+                "dano": 2502
+            }
+        ]
+    },
+    {
+        "time": "STRAFE",
+        "jogadores": [
+            {
+                "jogador": "andflp",
+                "abates": 2,
+                "assistencias": 0,
+                "dano": 763
+            },
+            {
+                "jogador": "Danielsr2",
+                "abates": 3,
+                "assistencias": 3,
+                "dano": 631
+            },
+            {
+                "jogador": "Doomed_Aim",
+                "abates": 8,
+                "assistencias": 2,
+                "dano": 1312
+            },
+            {
+                "jogador": "Paulao23",
+                "abates": 0,
+                "assistencias": 0,
+                "dano": 201
+            },
+            {
+                "jogador": "WF_PROZIN",
+                "abates": 4,
+                "assistencias": 1,
+                "dano": 572
+            }
+        ]
+    },
+    {
+        "time": "Sons of Anarchy - Time A",
+        "jogadores": [
+            {
+                "jogador": "caducast",
+                "abates": 2,
+                "assistencias": 0,
+                "dano": 604
+            },
+            {
+                "jogador": "ET_BRISADO",
+                "abates": 5,
+                "assistencias": 2,
+                "dano": 772
+            },
+            {
+                "jogador": "T0yzerAAA",
+                "abates": 1,
+                "assistencias": 1,
+                "dano": 548
+            },
+            {
+                "jogador": "takkaoF",
+                "abates": 0,
+                "assistencias": 0,
+                "dano": 228
+            }
+        ]
+    },
+    {
+        "time": "Sons of Anarchy - Time B",
+        "jogadores": [
+            {
+                "jogador": "JEAN01",
+                "abates": 1,
+                "assistencias": 1,
+                "dano": 1205
+            },
+            {
+                "jogador": "LAYOGAME",
+                "abates": 0,
+                "assistencias": 2,
+                "dano": 774
+            },
+            {
+                "jogador": "LopexRS",
+                "abates": 0,
+                "assistencias": 0,
+                "dano": 241
+            },
+            {
+                "jogador": "Mateus_GB2",
+                "abates": 1,
+                "assistencias": 1,
+                "dano": 85
+            },
+            {
+                "jogador": "Psamyster",
+                "abates": 0,
+                "assistencias": 0,
+                "dano": 0
+            }
+        ]
+    },
+    {
+        "time": "TÓXICOS",
+        "jogadores": [
+            {
+                "jogador": "AdriMal",
+                "abates": 7,
+                "assistencias": 6,
+                "dano": 1917
+            },
+            {
+                "jogador": "Dark-Funeral-666",
+                "abates": 0,
+                "assistencias": 2,
+                "dano": 109
+            },
+            {
+                "jogador": "MBSILVEIRA",
+                "abates": 15,
+                "assistencias": 6,
+                "dano": 2049
+            },
+            {
+                "jogador": "Racha_Cuca_AWM",
+                "abates": 2,
+                "assistencias": 0,
+                "dano": 213
+            },
+            {
+                "jogador": "xJMaRcox",
+                "abates": 7,
+                "assistencias": 2,
+                "dano": 1140
+            }
+        ]
+    }
+]
